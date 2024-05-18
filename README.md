@@ -5,7 +5,6 @@
 -   Omar Castro (Front-end)
 -   Xutao Gao (Project Manager/Front-end)
 -   Tetiana Kotvitska (API)
--   Cade Osborn (API)
 -   Luis Rodriguez-Rivera (Database/Front-end)
 
 ## Git
