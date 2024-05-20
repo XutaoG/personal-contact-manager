@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="css/styles.css" rel="stylesheet" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+			rel="stylesheet"
+		/>
+		<title>Contact Manager</title>
+	</head>
+	<img class="background" src="images/background.jpg" alt="background" />
+	<body class="contact-container">
+		<main class="contact-panel">
+			<div class="sidebar">
+				<div class="sidebar-top">
+					<div class="title-container">
+						<h3>Contact Manager</h3>
+					</div>
+					<div class="navigation-buttons">
+						<button class="button navigation-button">
+							<h3>Contacts</h3>
+						</button>
+						<button class="button navigation-button">
+							<h3>Contributors</h3>
+						</button>
+					</div>
+				</div>
+				<button class="button logout-button navigation-button">
+					<h3>Logout</h3>
+				</button>
+			</div>
+			<div class="contact-content">
+				<div>
+					<h1>Welcome</h1>
+					<h3>[Firstname], [Lastname]</h3>
+				</div>
+				<div class="search">
+					<input
+						class="search-input"
+						type="text"
+						placeholder="Search"
+					/>
+					<button class="button">
+						<h3>Search</h3>
+					</button>
+				</div>
+				<div class="add-contact-panel">
+					<div class="label">
+						<h3>Add Contact</h3>
+					</div>
+					<div class="add-contact-inputs">
+						<div class="contact-inputs-row-1">
+							<input placeholder="First Name" />
+							<input placeholder="Last Name" />
+						</div>
+						<div class="contact-inputs-row-2">
+							<input placeholder="Phone Number" />
+							<input placeholder="Email" />
+						</div>
+					</div>
+					<div>[Errors]</div>
+					<button class="button add-contact-button">
+						<h3>Add</h3>
+					</button>
+				</div>
+				<div class="all-contact-panel">
+					<div class="label">
+						<h3>All Contact</h3>
+					</div>
+					<div class="contact-entry">
+						<div class="contact-entry-info">
+							<p>[Firstname, Lastname]</p>
+							<p>[Phone Number]</p>
+							<p>[Email]</p>
+						</div>
+						<div class="contact-entry-navigation">
+							<button class="button">
+								<h3>Edit</h3>
+							</button>
+							<button class="button delete-contact-button">
+								<h3>Delete</h3>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>
