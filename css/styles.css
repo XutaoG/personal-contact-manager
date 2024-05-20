@@ -3,6 +3,7 @@
 	padding: 0;
 	box-sizing: border-box;
 	font-family: poppins;
+	min-width: fit-content;
 }
 
 p {
@@ -75,19 +76,20 @@ input {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	min-height: 640px;
+	padding: 10px 10px;
 }
 
 .auth-panel {
 	width: 480px;
-	height: 800px;
 	background: white;
 	border-radius: 25px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 40px;
-	padding: 0px 50px;
+	gap: 25px;
+	padding: 50px 40px;
 }
 
 .title-container {
@@ -175,11 +177,12 @@ input {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	gap: 10px;
 }
 
 .sidebar-top {
 	display: flex;
-	flex-direction: column;
+	flex-direction: inherit;
 	gap: 40px;
 }
 
@@ -195,7 +198,7 @@ input {
 
 .navigation-buttons {
 	display: flex;
-	flex-direction: column;
+	flex-direction: inherit;
 	gap: 10px;
 }
 
@@ -212,6 +215,7 @@ input {
 	display: flex;
 	flex-direction: column;
 	gap: 25px;
+	min-width: 0px;
 }
 
 .search {
@@ -220,7 +224,7 @@ input {
 	gap: 10px;
 }
 
-.search-input {
+.search input {
 	flex-grow: 1;
 	padding: 5px 15px;
 	background-color: rgba(255, 255, 255, 0.4);
@@ -228,8 +232,12 @@ input {
 	border-radius: 10px;
 }
 
-.search-input:focus {
+.search input:focus {
 	outline: none;
+}
+
+.search-button {
+	padding: 0px 5px;
 }
 
 .add-contact-panel {
@@ -237,63 +245,49 @@ input {
 	padding: 15px;
 	border-radius: 10px;
 	display: flex;
+	align-items: start;
 	flex-direction: column;
 	gap: 15px;
 }
 
-.contact-inputs-row-1 {
+.contact-form-fields {
 	display: flex;
+	flex-direction: column;
+	align-self: stretch;
+	/* align-items: stretch; */
+	/* width: 400px;
+	min-width: 50px; */
 }
 
-.contact-inputs-row-1 * {
-	flex-grow: 1;
-	padding: 15px 10px;
-	background: rgba(255, 255, 255, 0.8);
+.contact-form-fields input {
+	padding: 10px;
+	border-width: 1px 1px 1px 1px;
+	border-color: rgba(0, 0, 0, 1);
+	background: rgba(255, 255, 255, 0.4);
 }
 
-.contact-inputs-row-1 *:focus {
+.contact-form-fields input:focus {
 	outline: none;
 }
 
-.contact-inputs-row-1 > :first-child {
-	border-width: 1px 0px 0px 1px;
-	border-radius: 5px 0px 0px 0px;
+.contact-form-fields *:first-child {
+	border-width: 1px 1px 1px 1px;
+	border-radius: 5px 5px 0px 0px;
 }
 
-.contact-inputs-row-1 > :last-child {
-	border-width: 1px 1px 0px 1px;
-	border-radius: 0px 5px 0px 0px;
+.contact-form-fields *:not(:first-child) {
+	border-width: 0px 1px 1px 1px;
 }
 
-.contact-inputs-row-2 {
-	display: flex;
+.contact-form-fields *:last-child {
+	border-radius: 0px 0px 5px 5px;
 }
 
-.contact-inputs-row-2 * {
-	flex-grow: 1;
-	padding: 15px 10px;
-	background: rgba(255, 255, 255, 0.8);
-}
-
-.contact-inputs-row-2 *:focus {
-	outline: none;
-}
-
-.contact-inputs-row-2 > :first-child {
-	border-width: 1px 0px 1px 1px;
-	border-radius: 0px 0px 0px 5px;
-}
-
-.contact-inputs-row-2 > :last-child {
-	border-width: 1px;
-	border-radius: 0px 0px 5px 0px;
-}
-
-.add-contact-button {
+.contact-contact-button {
 	align-self: flex-start;
 }
 
-.all-contact-panel {
+.contact-contact-panel {
 	flex-grow: 1;
 	padding: 15px;
 	background: rgba(255, 255, 255, 0.3);
@@ -303,18 +297,33 @@ input {
 	gap: 15px;
 }
 
+.all-contact-panel {
+	flex-grow: 1;
+	background: rgba(255, 255, 255, 0.3);
+	padding: 15px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	gap: 15px;
+}
+
 .contact-entry {
+	align-self: stretch;
 	padding: 10px 15px;
 	display: flex;
-	gap: 20px;
+	gap: 10px;
 	background: rgba(255, 255, 255, 0.5);
 	border-radius: 10px;
+	flex-wrap: wrap;
 }
 
 .contact-entry-info {
 	display: flex;
 	flex-grow: 1;
 	justify-content: space-between;
+	gap: 10px;
+	flex-wrap: wrap;
 }
 
 .contact-entry-navigation {
@@ -332,3 +341,69 @@ input {
 }
 
 /* ! ========================= END CONTACT ========================= */
+
+/* ! ========================= MEDIA QUERIES ========================= */
+@media (max-width: 900px) {
+	.contact-panel {
+		flex-direction: column;
+		padding: none;
+	}
+
+	.contact-container {
+		padding: 0px;
+	}
+
+	.sidebar {
+		width: auto;
+		flex-direction: row;
+		border-radius: 0px;
+		padding: 15px;
+		flex-wrap: wrap;
+	}
+
+	.sidebar-top .title-container {
+		display: none;
+	}
+
+	.contact-content {
+		border-radius: 0px;
+		padding: 10px;
+		gap: 15px;
+	}
+
+	.add-contact-panel {
+		padding: 10px;
+	}
+}
+
+@media (max-width: 500px) or (max-height: 640px) {
+	input {
+		font-size: 14px;
+	}
+
+	p {
+		font-size: 14px;
+	}
+
+	h3 {
+		font-size: 16px;
+	}
+
+	h2 {
+		font-size: 20px;
+	}
+
+	h1 {
+		font-size: 26px;
+	}
+
+	.auth-panel {
+		padding: 40px 20px;
+	}
+}
+
+@media (max-height: 640px) {
+	.auth-container {
+		align-items: flex-start;
+	}
+}
