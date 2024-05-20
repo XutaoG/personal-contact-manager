@@ -5,13 +5,6 @@
 	font-family: poppins;
 }
 
-:root {
-	--primary-color: #b1adfb;
-	--primary-color-darken: #7d79c9;
-	--deletion-color: #d35454;
-	--deletion-color-darken: #a02929;
-}
-
 p {
 	font-size: 16px;
 }
@@ -33,6 +26,13 @@ h1 {
 
 input {
 	font-size: 16px;
+}
+
+:root {
+	--primary-color: #b1adfb;
+	--primary-color-darken: #7d79c9;
+	--deletion-color: #d35454;
+	--deletion-color-darken: #a02929;
 }
 
 .button {
