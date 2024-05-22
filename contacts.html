@@ -14,73 +14,84 @@
 	</head>
 	<img class="background" src="images/background.jpg" alt="background" />
 	<body class="contact-container">
-		<main class="contact-panel">
-			<div class="sidebar">
-				<div class="sidebar-top">
-					<div class="title-container">
-						<h3>Contact Manager</h3>
-					</div>
-					<div class="navigation-buttons">
-						<button class="button navigation-button">
-							<h3>Contacts</h3>
-						</button>
-						<button class="button navigation-button">
-							<h3>Contributors</h3>
-						</button>
-					</div>
+		<div class="sidebar">
+			<div class="sidebar-top">
+				<div class="title-container">
+					<h3>Contact Manager</h3>
 				</div>
-				<button class="button logout-button navigation-button">
-					<h3>Logout</h3>
+				<hr />
+				<div class="navigation-buttons">
+					<button class="button navigation-button">
+						<h3>Contacts</h3>
+					</button>
+					<button class="button navigation-button">
+						<h3>Contributors</h3>
+					</button>
+				</div>
+			</div>
+			<button class="button logout-button navigation-button">
+				<h3>Logout</h3>
+			</button>
+		</div>
+		<div class="contact-content">
+			<div>
+				<h1>Welcome</h1>
+				<h3>[Firstname], [Lastname]</h3>
+			</div>
+			<div class="search">
+				<input type="text" placeholder="Search" />
+				<button class="button">
+					<h3>Search</h3>
 				</button>
 			</div>
-			<div class="contact-content">
-				<div>
-					<h1>Welcome</h1>
-					<h3>[Firstname], [Lastname]</h3>
+			<div class="add-contact-panel">
+				<div class="label">
+					<h3>Add Contact</h3>
 				</div>
-				<div class="search">
-					<input type="text" placeholder="Search" />
-					<button class="button search-button">
-						<h3>Search</h3>
-					</button>
-				</div>
-				<div class="add-contact-panel">
-					<div class="label">
-						<h3>Add Contact</h3>
+				<div class="contact-form-fields">
+					<div class="contact-form-field">
+						<p>First name:</p>
+						<input type="text" />
 					</div>
-					<div class="contact-form-fields">
-						<input type="text" placeholder="First Name" />
-						<input type="text" placeholder="Last Name" />
-						<input type="text" placeholder="Phone Number" />
-						<input type="text" placeholder="Email" />
+					<div class="contact-form-field">
+						<p>Last name:</p>
+						<input type="text" />
 					</div>
-					<div>[Errors]</div>
-					<button class="button add-contact-button">
-						<h3>Add</h3>
-					</button>
+					<div class="contact-form-field">
+						<p>Phone:</p>
+						<input type="text" />
+					</div>
+					<div class="contact-form-field">
+						<p>Email:</p>
+						<input type="text" />
+					</div>
 				</div>
+				<div>[Errors]</div>
+				<button class="button add-contact-button">
+					<h3>Add</h3>
+				</button>
+			</div>
 
-				<div class="all-contact-panel">
-					<div class="label">
-						<h3>All Contact</h3>
+			<div class="all-contact-panel">
+				<div class="label">
+					<h3>All Contact</h3>
+				</div>
+				<div class="contact-entry">
+					<div class="contact-entry-info">
+						<p>[Firstname, Lastname]</p>
+						<p>[Phone Number]</p>
+						<p>[Email]</p>
 					</div>
-					<div class="contact-entry">
-						<div class="contact-entry-info">
-							<p>[Firstname, Lastname]</p>
-							<p>[Phone Number]</p>
-							<p>[Email]</p>
-						</div>
-						<div class="contact-entry-navigation">
-							<button class="button">
-								<h3>Edit</h3>
-							</button>
-							<button class="button delete-contact-button">
-								<h3>Delete</h3>
-							</button>
-						</div>
+					<div class="contact-entry-navigation">
+						<button class="button">
+							<h3>Edit</h3>
+						</button>
+						<button class="button delete-contact-button">
+							<h3>Delete</h3>
+						</button>
 					</div>
 				</div>
 			</div>
-		</main>
+		</div>
 	</body>
 </html>

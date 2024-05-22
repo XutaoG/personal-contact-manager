@@ -30,8 +30,8 @@ input {
 }
 
 :root {
-	--primary-color: #b1adfb;
-	--primary-color-darken: #7d79c9;
+	--primary-color: #817dc7;
+	--primary-color-darken: #5a578f;
 	--deletion-color: #d35454;
 	--deletion-color-darken: #a02929;
 }
@@ -40,7 +40,7 @@ input {
 	background: var(--primary-color);
 	padding: 0px 20px;
 	border: none;
-	border-radius: 10px;
+	border-radius: 5px;
 	color: white;
 }
 
@@ -50,7 +50,7 @@ input {
 }
 
 .label {
-	padding: 5px;
+	padding: 5px 5px;
 	text-align: center;
 	background: var(--primary-color);
 	color: white;
@@ -161,18 +161,11 @@ input {
 	width: 100dvw;
 	height: 100dvh;
 	display: flex;
-	padding: 25px;
-}
-
-.contact-panel {
-	flex-grow: 1;
-	display: flex;
 }
 
 .sidebar {
 	width: 250px;
-	background: rgba(255, 255, 255, 0.9);
-	border-radius: 25px 0px 0px 25px;
+	background: rgba(255, 255, 255);
 	padding: 25px 15px;
 	display: flex;
 	flex-direction: column;
@@ -209,8 +202,7 @@ input {
 
 .contact-content {
 	flex-grow: 1;
-	background: rgba(255, 255, 255, 0.4);
-	border-radius: 0px 25px 25px 0px;
+	background: rgba(255, 255, 255, 0.2);
 	padding: 25px;
 	display: flex;
 	flex-direction: column;
@@ -222,26 +214,23 @@ input {
 	display: flex;
 	justify-content: space-between;
 	gap: 10px;
+	flex-wrap: wrap;
 }
 
 .search input {
 	flex-grow: 1;
 	padding: 5px 15px;
-	background-color: rgba(255, 255, 255, 0.4);
+	background-color: rgba(255, 255, 255, 0.8);
 	border: none;
-	border-radius: 10px;
+	border-radius: 5px;
 }
 
 .search input:focus {
 	outline: none;
 }
 
-.search-button {
-	padding: 0px 5px;
-}
-
 .add-contact-panel {
-	background: rgba(255, 255, 255, 0.3);
+	background: rgba(255, 255, 255, 0.6);
 	padding: 15px;
 	border-radius: 10px;
 	display: flex;
@@ -253,34 +242,29 @@ input {
 .contact-form-fields {
 	display: flex;
 	flex-direction: column;
-	align-self: stretch;
-	/* align-items: stretch; */
-	/* width: 400px;
-	min-width: 50px; */
+	gap: 5px;
 }
 
-.contact-form-fields input {
-	padding: 10px;
-	border-width: 1px 1px 1px 1px;
-	border-color: rgba(0, 0, 0, 1);
-	background: rgba(255, 255, 255, 0.4);
+.contact-form-field {
+	display: flex;
+	row-gap: 2px;
+	align-items: center;
+	flex-wrap: wrap;
 }
 
-.contact-form-fields input:focus {
+.contact-form-field p {
+	width: 100px;
+}
+
+.contact-form-field input {
+	flex-grow: 1;
+	padding: 3px 5px;
+	border-width: 1px;
+	border-radius: 5px;
+}
+
+.contact-form-field input:focus {
 	outline: none;
-}
-
-.contact-form-fields *:first-child {
-	border-width: 1px 1px 1px 1px;
-	border-radius: 5px 5px 0px 0px;
-}
-
-.contact-form-fields *:not(:first-child) {
-	border-width: 0px 1px 1px 1px;
-}
-
-.contact-form-fields *:last-child {
-	border-radius: 0px 0px 5px 5px;
 }
 
 .contact-contact-button {
@@ -299,7 +283,7 @@ input {
 
 .all-contact-panel {
 	flex-grow: 1;
-	background: rgba(255, 255, 255, 0.3);
+	background: rgba(255, 255, 255, 0.6);
 	padding: 15px;
 	border-radius: 10px;
 	display: flex;
@@ -313,7 +297,7 @@ input {
 	padding: 10px 15px;
 	display: flex;
 	gap: 10px;
-	background: rgba(255, 255, 255, 0.5);
+	background: rgba(255, 255, 255, 1);
 	border-radius: 10px;
 	flex-wrap: wrap;
 }
@@ -344,20 +328,14 @@ input {
 
 /* ! ========================= MEDIA QUERIES ========================= */
 @media (max-width: 900px) {
-	.contact-panel {
-		flex-direction: column;
-		padding: none;
-	}
-
 	.contact-container {
-		padding: 0px;
+		flex-direction: column;
 	}
 
 	.sidebar {
 		width: auto;
 		flex-direction: row;
-		border-radius: 0px;
-		padding: 15px;
+		padding: 5px;
 		flex-wrap: wrap;
 	}
 
@@ -366,13 +344,20 @@ input {
 	}
 
 	.contact-content {
-		border-radius: 0px;
 		padding: 10px;
 		gap: 15px;
 	}
 
 	.add-contact-panel {
 		padding: 10px;
+	}
+
+	.all-contact-panel {
+		padding: 10px;
+	}
+
+	.sidebar-top hr {
+		display: none;
 	}
 }
 
