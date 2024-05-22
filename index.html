@@ -19,7 +19,7 @@
 	</head>
 	<img class="background" src="images/background.jpg" alt="background" />
 	<body class="auth-container">
-		<main class="auth-panel">
+		<form class="auth-panel">
 			<div class="title-container">
 				<h2>Contact Manager</h2>
 			</div>
@@ -32,14 +32,20 @@
 					</p>
 				</div>
 				<div class="auth-form-fields">
-					<input type="text" placeholder="Username" />
-					<input type="password" placeholder="Password" />
+					<div>
+						<p>Username:</p>
+						<input type="text" />
+					</div>
+					<div>
+						<p>Password:</p>
+						<input type="password" />
+					</div>
 				</div>
 				<div class="auth-errors"></div>
 			</div>
 			<button class="button auth-proceed-button">
 				<h3>Login</h3>
 			</button>
-		</main>
+		</form>
 	</body>
 </html>
