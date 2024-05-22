@@ -4,6 +4,7 @@
 	box-sizing: border-box;
 	font-family: poppins;
 	min-width: fit-content;
+	color: white;
 }
 
 p {
@@ -29,9 +30,22 @@ input {
 	font-size: 16px;
 }
 
+input:focus {
+	outline: none;
+}
+
+a {
+	color: #19b5fe;
+}
+
 :root {
-	--primary-color: #817dc7;
-	--primary-color-darken: #5a578f;
+	--primary-color: #04bdbc;
+	--primary-color-darken: #1e9999;
+
+	--background-color: #1f222c;
+	--panel-color: #252934;
+	--input-color: #30373f;
+
 	--deletion-color: #d35454;
 	--deletion-color-darken: #a02929;
 }
@@ -49,15 +63,6 @@ input {
 	cursor: pointer;
 }
 
-.label {
-	padding: 5px 5px;
-	text-align: center;
-	background: var(--primary-color);
-	color: white;
-	border-radius: 5px;
-	align-self: flex-start;
-}
-
 .background {
 	width: 100%;
 	height: 100%;
@@ -68,9 +73,34 @@ input {
 	top: 0;
 }
 
+.form-fields {
+	display: flex;
+	flex-direction: column;
+	align-self: stretch;
+	gap: 15px;
+}
+
+.form-fields .form-field {
+	display: flex;
+	background: var(--input-color);
+	padding: 15px 10px;
+	align-items: center;
+	border-radius: 5px;
+	gap: 8px;
+}
+
+.form-fields input {
+	flex-grow: 1;
+	border-width: 1px 1px 1px 1px;
+	border-color: rgba(0, 0, 0, 0.6);
+	background: transparent;
+	border: 0;
+}
+
 /* ! ========================= AUTH ========================= */
 
 .auth-container {
+	background: var(--background-color);
 	width: 100dvw;
 	height: 100dvh;
 	display: flex;
@@ -82,23 +112,31 @@ input {
 
 .auth-panel {
 	width: 480px;
-	background: white;
-	border-radius: 25px;
+	background: var(--panel-color);
+	opacity: 1;
+	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	gap: 25px;
 	padding: 50px 40px;
+	box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
 }
 
 .title-container {
 	padding: 15px 10px;
-	background: #9f9f9f;
-	border-radius: 5px;
-	font-weight: 600;
-	color: white;
+	/* background: white; */
+	background: rgba(0, 0, 0, 0.2);
+	/* border-radius: 5px; */
 	text-align: center;
+	box-shadow: 0px 5px 10px rgba(0, 0, 0, 1);
+}
+
+.title-container h2 {
+	font-family: Martian Mono;
+	color: var(--primary-color-darken);
+	font-weight: 700;
 }
 
 .auth-form-container {
@@ -113,44 +151,6 @@ input {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-}
-
-.auth-form-fields {
-	display: flex;
-	flex-direction: column;
-	align-self: stretch;
-}
-
-.auth-form-fields div {
-	display: flex;
-	border: 1px solid rgba(0, 0, 0, 0.6);
-	padding: 15px 10px;
-	align-items: center;
-	gap: 8px;
-}
-
-.auth-form-fields input {
-	flex-grow: 1;
-	border-width: 1px 1px 1px 1px;
-	border-color: rgba(0, 0, 0, 0.6);
-	border: 0;
-}
-
-.auth-form-fields input:focus {
-	outline: none;
-}
-
-.auth-form-fields div:first-child {
-	border-width: 1px 1px 1px 1px;
-	border-radius: 5px 5px 0px 0px;
-}
-
-.auth-form-fields div:not(:first-child) {
-	border-width: 0px 1px 1px 1px;
-}
-
-.auth-form-fields div:last-child {
-	border-radius: 0px 0px 5px 5px;
 }
 
 .auth-errors {
@@ -170,16 +170,18 @@ input {
 	width: 100dvw;
 	height: 100dvh;
 	display: flex;
+	background: var(--background-color);
 }
 
 .sidebar {
 	width: 250px;
-	background: rgba(255, 255, 255);
+	background: var(--panel-color);
 	padding: 25px 15px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	gap: 10px;
+	box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
 .sidebar-top {
@@ -205,14 +207,13 @@ input {
 }
 
 .navigation-button {
-	padding: 5px;
+	padding: 10px;
 	text-align: center;
 }
 
 .contact-content {
 	flex-grow: 1;
-	background: rgba(255, 255, 255, 0.2);
-	padding: 25px;
+	padding: 25px 50px;
 	display: flex;
 	flex-direction: column;
 	gap: 25px;
@@ -220,6 +221,7 @@ input {
 }
 
 .search {
+	align-self: stretch;
 	display: flex;
 	justify-content: space-between;
 	gap: 10px;
@@ -229,119 +231,57 @@ input {
 .search input {
 	flex-grow: 1;
 	padding: 5px 15px;
-	background-color: rgba(255, 255, 255, 0.8);
+	background-color: var(--input-color);
 	border: none;
 	border-radius: 5px;
 }
 
-.search input:focus {
-	outline: none;
-}
-
 .add-contact-panel {
-	background: rgba(255, 255, 255, 0.6);
+	background: var(--panel-color);
 	padding: 15px;
-	border-radius: 10px;
+	border-radius: 5px;
 	display: flex;
 	align-items: start;
 	flex-direction: column;
 	gap: 15px;
+	box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
 }
 
-.contact-form-fields {
+.add-contact-form-fields {
 	display: flex;
-	flex-direction: column;
-	align-self: stretch;
-}
-
-.contact-form-fields div {
-	display: flex;
-	border: 1px solid rgba(0, 0, 0, 0.6);
-	padding: 10px 10px;
-	align-items: center;
-	gap: 8px;
-}
-
-.contact-form-fields input {
-	flex-grow: 1;
-	border-width: 1px 1px 1px 1px;
-	border-color: rgba(0, 0, 0, 0.6);
-	border: 0;
-	background: transparent;
-}
-
-.contact-form-fields input:focus {
-	outline: none;
-}
-
-.contact-form-fields div:first-child {
-	border-width: 1px 1px 1px 1px;
-	border-radius: 5px 5px 0px 0px;
-}
-
-.contact-form-fields div:not(:first-child) {
-	border-width: 0px 1px 1px 1px;
-}
-
-.contact-form-fields div:last-child {
-	border-radius: 0px 0px 5px 5px;
-}
-
-/* .contact-form-field {
-	display: flex;
-	row-gap: 2px;
-	align-items: center;
+	flex-direction: row;
+	align-items: start;
 	flex-wrap: wrap;
+	row-gap: 15px;
+	row-gap: 15px;
 }
 
-.contact-form-field p {
-	width: 100px;
-}
-
-.contact-form-field input {
+.add-contact-form-fields .form-field {
 	flex-grow: 1;
-	padding: 3px 5px;
-	border-width: 1px;
-	border-radius: 5px;
-} */
-
-/* .contact-form-field input:focus {
-	outline: none;
-} */
-
-.contact-contact-button {
-	align-self: flex-start;
-}
-
-.contact-contact-panel {
-	flex-grow: 1;
-	padding: 15px;
-	background: rgba(255, 255, 255, 0.3);
-	border-radius: 10px;
-	display: flex;
-	flex-direction: column;
-	gap: 15px;
+	flex-basis: 0;
 }
 
 .all-contact-panel {
 	flex-grow: 1;
-	background: rgba(255, 255, 255, 0.6);
+	background: var(--panel-color);
 	padding: 15px;
-	border-radius: 10px;
+	border-radius: 5px;
 	display: flex;
 	flex-direction: column;
 	align-items: start;
 	gap: 15px;
+	box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
 }
 
 .contact-entry {
 	align-self: stretch;
-	padding: 10px 15px;
 	display: flex;
-	gap: 10px;
-	background: rgba(255, 255, 255, 1);
-	border-radius: 10px;
+	row-gap: 10px;
+	column-gap: 30px;
 	flex-wrap: wrap;
+	padding: 15px 0px 5px 0px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-width: 2px 0px 0px 0px;
 }
 
 .contact-entry-info {
@@ -400,6 +340,10 @@ input {
 
 	.sidebar-top hr {
 		display: none;
+	}
+
+	.navigation-button {
+		padding: 5px;
 	}
 }
 

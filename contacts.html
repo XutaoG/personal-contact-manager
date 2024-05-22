@@ -10,16 +10,19 @@
 			href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
 			rel="stylesheet"
 		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&family=Monoton&family=Orbitron:wght@400..900&display=swap"
+			rel="stylesheet"
+		/>
 		<title>Contact Manager</title>
 	</head>
-	<img class="background" src="images/background.jpg" alt="background" />
 	<body class="contact-container">
 		<div class="sidebar">
 			<div class="sidebar-top">
 				<div class="title-container">
-					<h3>Contact Manager</h3>
+					<h2>CONTACT MANAGER</h2>
 				</div>
-				<hr />
+				<hr color="#101010" />
 				<div class="navigation-buttons">
 					<button class="button navigation-button">
 						<h3>Contacts</h3>
@@ -38,30 +41,25 @@
 				<h1>Welcome</h1>
 				<h3>[Firstname], [Lastname]</h3>
 			</div>
-			<div class="search">
-				<input type="text" placeholder="Search" />
-				<button class="button">
-					<h3>Search</h3>
-				</button>
-			</div>
+
 			<div class="add-contact-panel">
-				<div class="label">
+				<div>
 					<h3>Add Contact</h3>
 				</div>
-				<div class="contact-form-fields">
-					<div>
+				<div class="form-fields add-contact-form-fields">
+					<div class="form-field">
 						<p>First Name:</p>
 						<input type="text" />
 					</div>
-					<div>
+					<div class="form-field">
 						<p>Last Name:</p>
 						<input type="text" />
 					</div>
-					<div>
+					<div class="form-field">
 						<p>Phone Number:</p>
 						<input type="text" />
 					</div>
-					<div>
+					<div class="form-field">
 						<p>Email:</p>
 						<input type="text" />
 					</div>
@@ -73,8 +71,14 @@
 			</div>
 
 			<div class="all-contact-panel">
-				<div class="label">
+				<div>
 					<h3>All Contact</h3>
+				</div>
+				<div class="search">
+					<input type="text" placeholder="Search" />
+					<button class="button">
+						<h3>Search</h3>
+					</button>
 				</div>
 				<div class="contact-entry">
 					<div class="contact-entry-info">
