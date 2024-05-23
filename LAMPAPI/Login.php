@@ -14,17 +14,22 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("SELECT ID,firstName,lastName FROM Users WHERE Login=? AND Password =?");
+		$stmt = $conn->prepare("SELECT ID,firstName,lastName, Password FROM Users WHERE Login=?");
 		$stmt->bind_param("ss", $inData["login"], $inData["password"]);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
 		if( $row = $result->fetch_assoc()  )
 		{
-			returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
-		}
-		else
-		{
+			// password_verify() compares hash password in database with user-provided password
+			if (password_verify($inData["password"], $row["Password"])) {
+				returnWithInfo($row["firstName"], $row["lastName"], $row['ID']);
+			} 
+			else {
+				returnWithError("Invalid Password");
+			} 
+		} 
+		else {
 			returnWithError("No Records Found");
 		}
 
