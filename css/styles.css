@@ -39,8 +39,8 @@ a {
 }
 
 :root {
-	--primary-color: #04bdbc;
-	--primary-color-darken: #1e9999;
+	--primary-color: #52b1b1;
+	--primary-color-darken: #35b1b1;
 
 	--background-color: #1f222c;
 	--panel-color: #252934;
@@ -247,6 +247,14 @@ a {
 	box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
 }
 
+.contact-form {
+	align-self: stretch;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	align-items: start;
+}
+
 .add-contact-form-fields {
 	display: flex;
 	flex-direction: row;
@@ -276,12 +284,18 @@ a {
 .contact-entry {
 	align-self: stretch;
 	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 15px 0px 5px 0px;
+	border: 1px solid rgba(0, 0, 0, 0.4);
+	border-width: 2px 0px 0px 0px;
+}
+
+.contact-entry-form {
+	display: flex;
 	row-gap: 10px;
 	column-gap: 30px;
 	flex-wrap: wrap;
-	padding: 15px 0px 5px 0px;
-	border: 1px solid rgba(0, 0, 0, 0.2);
-	border-width: 2px 0px 0px 0px;
 }
 
 .contact-entry-info {

@@ -46,31 +46,33 @@
 				<div>
 					<h3>Add Contact</h3>
 				</div>
-				<div class="form-fields add-contact-form-fields">
-					<div class="form-field">
-						<p>First Name:</p>
-						<input type="text" />
+				<div id="contactForm" class="contact-form">
+					<div class="form-fields add-contact-form-fields">
+						<div class="form-field">
+							<p>First Name:</p>
+							<input type="text" />
+						</div>
+						<div class="form-field">
+							<p>Last Name:</p>
+							<input type="text" />
+						</div>
+						<div class="form-field">
+							<p>Phone Number:</p>
+							<input type="text" />
+						</div>
+						<div class="form-field">
+							<p>Email:</p>
+							<input type="text" />
+						</div>
 					</div>
-					<div class="form-field">
-						<p>Last Name:</p>
-						<input type="text" />
-					</div>
-					<div class="form-field">
-						<p>Phone Number:</p>
-						<input type="text" />
-					</div>
-					<div class="form-field">
-						<p>Email:</p>
-						<input type="text" />
-					</div>
+					<div>[Errors]</div>
+					<button class="button">
+						<h3>Add</h3>
+					</button>
 				</div>
-				<div>[Errors]</div>
-				<button class="button add-contact-button">
-					<h3>Add</h3>
-				</button>
 			</div>
 
-			<div class="all-contact-panel">
+			<div id="contact-entries" class="all-contact-panel">
 				<div>
 					<h3>All Contact</h3>
 				</div>
@@ -81,21 +83,51 @@
 					</button>
 				</div>
 				<div class="contact-entry">
-					<div class="contact-entry-info">
-						<p>[Firstname, Lastname]</p>
-						<p>[Phone Number]</p>
-						<p>[Email]</p>
+					<div class="contact-entry-form">
+						<div class="contact-entry-info">
+							<p>[Firstname, Lastname]</p>
+							<p>[Phone Number]</p>
+							<p>[Email]</p>
+						</div>
+						<div class="contact-entry-navigation">
+							<button
+								class="button"
+								onclick="switchContactToEdit(event)"
+							>
+								<h3>Edit</h3>
+							</button>
+							<button class="button delete-contact-button">
+								<h3>Delete</h3>
+							</button>
+						</div>
 					</div>
-					<div class="contact-entry-navigation">
+					<div id="contactForm" class="contact-form">
+						<div class="form-fields add-contact-form-fields">
+							<div class="form-field">
+								<p>First Name:</p>
+								<input type="text" />
+							</div>
+							<div class="form-field">
+								<p>Last Name:</p>
+								<input type="text" />
+							</div>
+							<div class="form-field">
+								<p>Phone Number:</p>
+								<input type="text" />
+							</div>
+							<div class="form-field">
+								<p>Email:</p>
+								<input type="text" />
+							</div>
+						</div>
+						<div>[Errors]</div>
 						<button class="button">
-							<h3>Edit</h3>
-						</button>
-						<button class="button delete-contact-button">
-							<h3>Delete</h3>
+							<h3>Save</h3>
 						</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</body>
+	<script type="text/javascript" src="js/code.js"></script>
 </html>
