@@ -7,22 +7,20 @@ error_reporting(E_ALL);
 
 $inData = getRequestInfo();
 
-$id = $inData["id"];
-$firstName = $inData["firstName"];
-$lastName = $inData["lastName"];
-$phoneNumber = $inData["phoneNumber"];
-$emailAddress = $inData["emailAddress"];
+$ID = $inData["ID"];
+$Name = $inData["Name"];
+$Phone = $inData["Phone"];
+$Email = $inData["Email"];
 
 $conn = new mysqli("localhost", "TheBeast", "We4331!L", "COP4331");
 if ($conn->connect_error) {
     returnWithError($conn->connect_error);
 } else {
-    $stmt = $conn->prepare("UPDATE Contacts SET FirstName=?, LastName=?, PhoneNumber=?, EmailAddress=? WHERE ID=?");
-    $stmt->bind_param("ssssi", $firstName, $lastName, $phoneNumber, $emailAddress, $id);
+    $stmt = $conn->prepare("UPDATE Contacts SET Name=?, Phone=?, Email=? WHERE ID=?");
+    $stmt->bind_param("sssi", $Name, $Phone, $Email, $ID);
     if($stmt->execute()) {
         $stmt->close();
         $conn->close();
-        returnWithError("");
     } else {
         returnWithError($stmt->error);
     }

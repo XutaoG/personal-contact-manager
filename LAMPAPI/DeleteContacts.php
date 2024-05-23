@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 
 $inData = getRequestInfo();
 
-$userId = $inData["userId"];
+$UserID = $inData["UserID"];
 
 $conn = new mysqli("localhost", "TheBeast", "We4331!L", "COP4331");
 if ($conn->connect_error) {
@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 } else {
     $stmt = $conn->prepare("DELETE FROM Contacts WHERE UserID=?");
     if ($stmt) {
-        $stmt->bind_param("i", $userId);
+        $stmt->bind_param("i", $UserID);
         if ($stmt->execute()) {
             $stmt->close();
             $conn->close();

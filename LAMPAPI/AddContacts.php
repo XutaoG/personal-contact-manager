@@ -6,22 +6,20 @@ error_reporting(E_ALL);
 
 $inData = getRequestInfo();
 
-$firstName = $inData["firstName"];
-$lastName = $inData["lastName"];
-$phoneNumber = $inData["phoneNumber"];
-$emailAddress = $inData["emailAddress"];
-$userId = $inData["userId"];
+$Name = $inData["Name"];
+$Phone = $inData["Phone"];
+$Email = $inData["Email"];
+$UserID = $inData["UserID"];
 
 $conn = new mysqli("localhost", "TheBeast", "We4331!L", "COP4331");
 if ($conn->connect_error) {
     returnWithError($conn->connect_error);
 } else {
-    $stmt = $conn->prepare("INSERT INTO Contacts (FirstName, LastName, PhoneNumber, EmailAddress, UserID) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssi", $firstName, $lastName, $phoneNumber, $emailAddress, $userId);
+    $stmt = $conn->prepare("INSERT INTO Contacts (Name, Phone, Email, UserID) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("sssi", $Name, $Phone, $Email, $UserID);
     if($stmt->execute()) {
         $stmt->close();
         $conn->close();
-        returnWithError("");
     } else {
         returnWithError($stmt->error);
     }
