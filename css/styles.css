@@ -40,11 +40,19 @@ a {
 
 :root {
 	--primary-color: #52b1b1;
-	--primary-color-darken: #35b1b1;
+	--primary-color-light: #72caca;
+	--primary-color-dark: #368787;
+	/* --primary-color-light: #589ad9; */
+	/* --primary-color: #3686d1; */
+	/* --primary-color-darken: #1f62a1; */
 
-	--background-color: #1f222c;
-	--panel-color: #252934;
-	--input-color: #30373f;
+	/* --background-color: #1f222c; */
+	--background-color: #030c25;
+	/* --panel-color: #252934; */
+	--panel-color: #091c3a;
+	--sidebar-color: #091c3a;
+	/* --input-color: #041024; */
+	--input-color: #030c25;
 
 	--deletion-color: #d35454;
 	--deletion-color-darken: #a02929;
@@ -127,15 +135,17 @@ a {
 .title-container {
 	padding: 15px 10px;
 	/* background: white; */
-	background: rgba(0, 0, 0, 0.2);
-	/* border-radius: 5px; */
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 5px;
 	text-align: center;
-	box-shadow: 0px 5px 10px rgba(0, 0, 0, 1);
+	border: 1px solid var(--primary-color-light);
+	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+
 }
 
 .title-container h2 {
 	font-family: Martian Mono;
-	color: var(--primary-color-darken);
+	color: var(--primary-color-light);
 	font-weight: 700;
 }
 
@@ -175,13 +185,15 @@ a {
 
 .sidebar {
 	width: 250px;
-	background: var(--panel-color);
+	background: var(--sidebar-color);
 	padding: 25px 15px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	gap: 10px;
-	box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.5);
+	box-shadow: 5px 0px 5px rgba(0, 0, 0, 0.2);
+	/* border: 1px solid var(--primary-color-light);
+	border-width: 0px 1px 0px 0px; */
 }
 
 .sidebar-top {
@@ -239,12 +251,13 @@ a {
 .add-contact-panel {
 	background: var(--panel-color);
 	padding: 15px;
-	border-radius: 5px;
+	/* border-radius: 5px; */
 	display: flex;
 	align-items: start;
 	flex-direction: column;
 	gap: 15px;
-	box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 0px 10px black;
+	/* border: 1px solid var(--primary-color-light); */
 }
 
 .contact-form {
@@ -273,12 +286,13 @@ a {
 	flex-grow: 1;
 	background: var(--panel-color);
 	padding: 15px;
-	border-radius: 5px;
+	/* border-radius: 5px; */
 	display: flex;
 	flex-direction: column;
 	align-items: start;
 	gap: 15px;
-	box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 0px 10px black;
+	/* border: 1px solid var(--primary-color-light); */
 }
 
 .contact-entry {
