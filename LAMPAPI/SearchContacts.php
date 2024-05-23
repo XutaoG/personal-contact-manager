@@ -1,14 +1,14 @@
 <?php
 
+// Enable error reporting
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $inData = getRequestInfo();
 
 $searchResults = "";
 $searchCount = 0;
-
-$Name = $inData["Name"];
-$Phone = $inData["Phone"];
-$Email = $inData["Email"];
-$UserID = $inData["UserID"];
 
 $conn = new mysqli("localhost", "TheBeast", "We4331!L", "COP4331");
 if ($conn->connect_error)
@@ -18,16 +18,14 @@ if ($conn->connect_error)
 else
 {
     // Prepare the statement with four parameters: Name, Phone, Email, and UserID
-    $stmt = $conn->prepare("SELECT * FROM Contacts WHERE Name LIKE ? OR Phone LIKE ? OR Email LIKE ? OR UserID LIKE ?");
+    $stmt = $conn->prepare("SELECT * FROM Contacts WHERE (Name LIKE ? OR Phone LIKE ? OR Email LIKE ?) AND UserID=?");
     
     // Add wildcards to the input values for partial matching
-    $Name = "%" . $Name . "%";
-    $Phone = "%" . $Phone . "%";
-    $Email = "%" . $Email . "%";
-    $UserID = "%" . $UserID . "%";
+    $searchTerm = "%" . $inData["Search"] . "%";
+    $UserID = $inData["UserID"];
     
-    // Bind the parameters, all as strings ('s')
-    $stmt->bind_param("ssss", $Name, $Phone, $Email, $UserID);
+    // Bind the parameters, all as strings ('s') except for UserID ('i')
+    $stmt->bind_param("ssss", $searchTerm, $searchTerm, $searchTerm, $UserID);
     
     $stmt->execute();
     
