@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="css/styles.css" rel="stylesheet" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&family=Monoton&family=Orbitron:wght@400..900&display=swap"
+			rel="stylesheet"
+		/>
+		<script type="text/javascript">
+			document.addEventListener(
+				"DOMContentLoaded",
+				() => {
+					readCookie();
+					initializeContactsPage();
+				},
+				false
+			);
+		</script>
+		<title>Contact Manager</title>
+	</head>
+	<body class="contact-container">
+		<div class="sidebar">
+			<div class="sidebar-top">
+				<div class="title-container">
+					<h2>CONTACT MANAGER</h2>
+				</div>
+				<hr color="#101010" />
+				<div class="navigation-buttons">
+					<button
+						class="button navigation-button"
+						onclick="switchToContactsPage();"
+					>
+						<h3>Contacts</h3>
+					</button>
+					<button class="button navigation-button">
+						<h3>Contributors</h3>
+					</button>
+				</div>
+			</div>
+			<button
+				class="button logout-button navigation-button"
+				onclick="logout();"
+			>
+				<h3>Logout</h3>
+			</button>
+		</div>
+		<div class="contact-content">
+			<div>
+				<h1>Welcome</h1>
+				<h3 id="userFullName">[Firstname], [Lastname]</h3>
+			</div>
+
+			<div class="add-contact-panel">
+				<div>
+					<h3>Add Contact</h3>
+				</div>
+				<div id="contactForm" class="contact-form">
+					<div class="form-fields add-contact-form-fields">
+						<div class="form-field">
+							<p>First Name:</p>
+							<input id="addContactFirstName" type="text" />
+						</div>
+						<div class="form-field">
+							<p>Last Name:</p>
+							<input id="addContactLastName" type="text" />
+						</div>
+						<div class="form-field">
+							<p>Phone Number:</p>
+							<input id="addContactPhoneNumber" type="text" />
+						</div>
+						<div class="form-field">
+							<p>Email:</p>
+							<input id="addContactEmail" type="text" />
+						</div>
+					</div>
+					<ul id="addContactErrors" class="field-errors"></ul>
+					<button class="button" onclick="addContact();">
+						<h3>Add</h3>
+					</button>
+				</div>
+			</div>
+			<div id="allContacts" class="all-contact-panel">
+				<div>
+					<h3>All Contact</h3>
+				</div>
+				<div id="search" class="search">
+					<input type="text" placeholder="Search" />
+					<button class="button" onclick="searchContacts();">
+						<h3>Search</h3>
+					</button>
+					<button
+						class="button reset-search-button"
+						onclick="resetSearch();"
+					>
+						<h3>Reset</h3>
+					</button>
+				</div>
+				<div id="contactEntries" class="contact-entries">
+					<div class="contact-entry">
+						<div class="contact-entry-form">
+							<div class="contact-entry-info">
+								<p>[Firstname, Lastname]</p>
+								<p>[Phone Number]</p>
+								<p>[Email]</p>
+							</div>
+							<div class="contact-entry-navigation">
+								<button
+									class="button"
+									onclick="switchContactToEdit(event)"
+								>
+									<h3>Edit</h3>
+								</button>
+								<button
+									class="button delete-contact-button"
+									onclick="deleteContact(event);"
+								>
+									<h3>Delete</h3>
+								</button>
+							</div>
+						</div>
+						<div id="contactForm" class="contact-form">
+							<div class="form-fields add-contact-form-fields">
+								<div class="form-field">
+									<p>First Name:</p>
+									<input type="text" />
+								</div>
+								<div class="form-field">
+									<p>Last Name:</p>
+									<input type="text" />
+								</div>
+								<div class="form-field">
+									<p>Phone Number:</p>
+									<input type="text" />
+								</div>
+								<div class="form-field">
+									<p>Email:</p>
+									<input type="text" />
+								</div>
+							</div>
+							<ul class="field-errors"></ul>
+							<button
+								class="button"
+								onclick="editContact(event);"
+							>
+								<h3>Save</h3>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/code.js"></script>
+</html>
