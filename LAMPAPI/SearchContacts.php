@@ -22,10 +22,9 @@ else
     
     // Add wildcards to the input values for partial matching
     $searchTerm = "%" . $inData["Search"] . "%";
-    $UserID = $inData["UserID"];
     
     // Bind the parameters, all as strings ('s') except for UserID ('i')
-    $stmt->bind_param("ssss", $searchTerm, $searchTerm, $searchTerm, $UserID);
+    $stmt->bind_param("sssi", $searchTerm, $searchTerm, $searchTerm, $inData["UserID"]);
     
     $stmt->execute();
     
@@ -38,7 +37,7 @@ else
             $searchResults .= ",";
         }
         $searchCount++;
-        $searchResults .= '{"Name" : "' . $row["Name"]. '", "Phone" : "' . $row["Phone"]. '", "Email" : "' . $row["Email"]. '", "UserID" : "' . $row["UserID"]. '"}';
+        $searchResults .= '{"Name" : "' . $row["Name"]. '", "Phone" : "' . $row["Phone"]. '", "Email" : "' . $row["Email"]. '", "UserID" : ' . $row["UserID"]. '}';
     }
     
     if($searchCount == 0)
@@ -67,7 +66,7 @@ function sendResultInfoAsJson($obj)
 
 function returnWithError($err)
 {
-    $retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+    $retValue = '{"results":[],"error":"' . $err . '"}';
     sendResultInfoAsJson($retValue);
 }
 
