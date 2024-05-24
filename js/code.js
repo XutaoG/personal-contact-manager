@@ -2,6 +2,7 @@ const urlBase = "http://165.22.10.169/LAMPAPI";
 const extension = "php";
 
 let userId = 0;
+let username = "";
 let firstName = "";
 let lastName = "";
 let contactEntries;
@@ -9,54 +10,8 @@ let contactEntryBase;
 let contactFormBase;
 let currentContactToEdit = null;
 
-function doLogin() {
-	userId = 0;
-	firstName = "";
-	lastName = "";
-
-	let login = document.getElementById("loginName").value;
-	let password = document.getElementById("loginPassword").value;
-	//	var hash = md5( password );
-
-	document.getElementById("loginResult").innerHTML = "";
-
-	let tmp = { login: login, password: password };
-	//	var tmp = {login:login,password:hash};
-	let jsonPayload = JSON.stringify(tmp);
-
-	let url = urlBase + "/Login." + extension;
-
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try {
-		xhr.onreadystatechange = function () {
-			if (this.readyState == 4 && this.status == 200) {
-				let jsonObject = JSON.parse(xhr.responseText);
-				userId = jsonObject.id;
-
-				if (userId < 1) {
-					document.getElementById("loginResult").innerHTML =
-						"User/Password combination incorrect";
-					return;
-				}
-
-				firstName = jsonObject.firstName;
-				lastName = jsonObject.lastName;
-
-				saveCookie();
-
-				window.location.href = "color.html";
-			}
-		};
-		xhr.send(jsonPayload);
-	} catch (err) {
-		document.getElementById("loginResult").innerHTML = err.message;
-	}
-}
-
 function saveCookie() {
-	let minutes = 20;
+	let minutes = 60;
 	let date = new Date();
 	date.setTime(date.getTime() + minutes * 60 * 1000);
 	document.cookie =
@@ -66,6 +21,8 @@ function saveCookie() {
 		lastName +
 		",userId=" +
 		userId +
+		",username=" +
+		username +
 		";expires=" +
 		date.toGMTString();
 }
@@ -81,6 +38,8 @@ function readCookie() {
 			firstName = tokens[1];
 		} else if (tokens[0] == "lastName") {
 			lastName = tokens[1];
+		} else if (tokens[0] == "username") {
+			username = tokens[1];
 		} else if (tokens[0] == "userId") {
 			userId = parseInt(tokens[1].trim());
 		}
@@ -89,69 +48,9 @@ function readCookie() {
 	if (userId < 0) {
 		window.location.href = "index.html";
 	} else {
-		//		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
-	}
-}
-
-function addColor() {
-	let newColor = document.getElementById("colorText").value;
-	document.getElementById("colorAddResult").innerHTML = "";
-
-	let tmp = { color: newColor, userId, userId };
-	let jsonPayload = JSON.stringify(tmp);
-
-	let url = urlBase + "/AddColor." + extension;
-
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try {
-		xhr.onreadystatechange = function () {
-			if (this.readyState == 4 && this.status == 200) {
-				document.getElementById("colorAddResult").innerHTML =
-					"Color has been added";
-			}
-		};
-		xhr.send(jsonPayload);
-	} catch (err) {
-		document.getElementById("colorAddResult").innerHTML = err.message;
-	}
-}
-
-function searchColor() {
-	let srch = document.getElementById("searchText").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
-
-	let colorList = "";
-
-	let tmp = { search: srch, userId: userId };
-	let jsonPayload = JSON.stringify(tmp);
-
-	let url = urlBase + "/SearchColors." + extension;
-
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try {
-		xhr.onreadystatechange = function () {
-			if (this.readyState == 4 && this.status == 200) {
-				document.getElementById("colorSearchResult").innerHTML =
-					"Color(s) has been retrieved";
-				let jsonObject = JSON.parse(xhr.responseText);
-
-				for (let i = 0; i < jsonObject.results.length; i++) {
-					colorList += jsonObject.results[i];
-					if (i < jsonObject.results.length - 1) {
-						colorList += "<br />\r\n";
-					}
-				}
-
-				document.getElementsByTagName("p")[0].innerHTML = colorList;
-			}
-		};
-		xhr.send(jsonPayload);
-	} catch (err) {
-		document.getElementById("colorSearchResult").innerHTML = err.message;
+		document.getElementById(
+			"userFullName"
+		).innerHTML = `${firstName} ${lastName} (${username})`;
 	}
 }
 
@@ -181,15 +80,15 @@ const validateSignUpFields = (firstName, lastName, username, password) => {
 	}
 
 	// Validate username
-	if (username.length === 0) {
-		errors.push("Username cannot be empty");
+	if (username.length <= 4) {
+		errors.push("Username must be longer than 4 characters");
 	} else if (username.length > 24) {
 		errors.push("Username cannot be longer than 24 characters");
 	}
 
 	// Validate password
-	if (password.length <= 8) {
-		errors.push("Password must be longer than 8 characters");
+	if (password.length <= 7) {
+		errors.push("Password must be longer than 7 characters");
 	} else if (password.length > 24) {
 		errors.push("Password cannot be longer than 24 characters");
 	}
@@ -199,29 +98,37 @@ const validateSignUpFields = (firstName, lastName, username, password) => {
 
 const signUp = () => {
 	// Get add contact input values
-	const firstName = document.getElementById("signUpFirstName").value.trim();
-	const lastName = document.getElementById("signUpLastName").value.trim();
-	const username = document.getElementById("signUpUsername").value.trim();
-	const password = document.getElementById("signUpPassword").value.trim();
+	const firstNameValue = document
+		.getElementById("signUpFirstName")
+		.value.trim();
+	const lastNameValue = document
+		.getElementById("signUpLastName")
+		.value.trim();
+	const usernameValue = document
+		.getElementById("signUpUsername")
+		.value.trim();
+	const passwordValue = document
+		.getElementById("signUpPassword")
+		.value.trim();
 
 	// Trim input spaces
-	document.getElementById("signUpFirstName").value = firstName;
-	document.getElementById("signUpLastName").value = lastName;
-	document.getElementById("signUpUsername").value = username;
-	document.getElementById("signUpPassword").value = password;
+	document.getElementById("signUpFirstName").value = firstNameValue;
+	document.getElementById("signUpLastName").value = lastNameValue;
+	document.getElementById("signUpUsername").value = usernameValue;
+	document.getElementById("signUpPassword").value = passwordValue;
 
 	signUpErrors = validateSignUpFields(
-		firstName,
-		lastName,
-		username,
-		password
+		firstNameValue,
+		lastNameValue,
+		usernameValue,
+		passwordValue
 	);
+
+	const signUpErrorsElement = document.getElementById("signUpErrors");
+	signUpErrorsElement.innerHTML = "";
 
 	// Display errors if error exists
 	if (signUpErrors.length !== 0) {
-		const signUpErrorsElement = document.getElementById("signUpErrors");
-		signUpErrorsElement.innerHTML = "";
-
 		signUpErrors.forEach((error) => {
 			signUpErrorsElement.innerHTML += `<li>${error}</li>`;
 		});
@@ -229,7 +136,35 @@ const signUp = () => {
 		return;
 	}
 
-	// TODO - Make signUp API call
+	let jsonPayload = JSON.stringify({
+		firstName: firstNameValue,
+		lastName: lastNameValue,
+		username: usernameValue,
+		password: passwordValue,
+	});
+
+	let url = urlBase + "/SignUp." + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		xhr.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				window.location.href = "index.html";
+			} else if (this.readyState == 4 && this.status == 409) {
+				if (userId < 1) {
+					document.getElementById(
+						"signUpErrors"
+					).innerHTML = `<li>Username already exist</li>`;
+					return;
+				}
+			}
+		};
+		xhr.send(jsonPayload);
+	} catch (err) {
+		console.log(`Error: ${err.message}`);
+	}
 };
 
 const validateLoginFields = (username, password) => {
@@ -250,16 +185,16 @@ const validateLoginFields = (username, password) => {
 
 const login = () => {
 	// Get login input values
-	const username = document.getElementById("loginUsername").value.trim();
-	const password = document.getElementById("loginPassword").value.trim();
+	const usernameValue = document.getElementById("loginUsername").value.trim();
+	const passwordValue = document.getElementById("loginPassword").value.trim();
 
-	loginErrors = validateLoginFields(username, password);
+	loginErrors = validateLoginFields(usernameValue, passwordValue);
+
+	const loginErrorsElement = document.getElementById("loginErrors");
+	loginErrorsElement.innerHTML = "";
 
 	// Display errors if error exists
 	if (loginErrors.length !== 0) {
-		const loginErrorsElement = document.getElementById("loginErrors");
-		loginErrorsElement.innerHTML = "";
-
 		loginErrors.forEach((error) => {
 			loginErrorsElement.innerHTML += `<li>${error}</li>`;
 		});
@@ -267,9 +202,45 @@ const login = () => {
 		return;
 	}
 
-	// TODO - Make login API call
+	// * Make login API call
+	userId = 0;
 
-	// window.location.href = "contacts.html";
+	let jsonPayload = JSON.stringify({
+		username: usernameValue,
+		password: passwordValue,
+	});
+
+	let url = urlBase + "/Login." + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		xhr.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				let jsonObject = JSON.parse(xhr.responseText);
+
+				userId = jsonObject.id;
+				firstName = jsonObject.firstName;
+				lastName = jsonObject.lastName;
+				username = jsonObject.username;
+
+				saveCookie();
+
+				window.location.href = "contacts.html";
+			} else if (this.readyState == 4 && this.status == 401) {
+				if (userId < 1) {
+					document.getElementById(
+						"loginErrors"
+					).innerHTML = `<li>Incorrect Username or Password</li>`;
+					return;
+				}
+			}
+		};
+		xhr.send(jsonPayload);
+	} catch (err) {
+		console.log(`Error: ${err.message}`);
+	}
 };
 
 const logout = () => {
@@ -282,13 +253,51 @@ const logout = () => {
 
 // * ================ CONTACTS ================
 
-// TODO - Retrieve all contacts
-const getAllContacts = () => {};
+const resetAllFields = () => {
+	document.getElementById("addContactFirstName").value = "";
+	document.getElementById("addContactLastName").value = "";
+	document.getElementById("addContactPhoneNumber").value = "";
+	document.getElementById("addContactEmail").value = "";
+	document.getElementById("addContactErrors").innerHTML = "";
+	currentContactToEdit = null;
+	resetSearch();
+};
 
 const searchContacts = () => {
-	const searchKeyword = document.querySelector("#search input").value;
+	document.getElementById("contactEntries").innerHTML = "";
+	const searchKeywordValue = document.querySelector("#search input").value;
 
-	// TODO - Make searchContacts API call
+	// * Make searchContacts API call
+	let jsonPayload = JSON.stringify({
+		searchKeyword: searchKeywordValue,
+		userId: userId,
+	});
+
+	let url = urlBase + "/SearchContacts." + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		xhr.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				let jsonObject = JSON.parse(xhr.responseText).results;
+
+				jsonObject.forEach((contactEntry) => {
+					insertContact(
+						contactEntry.id,
+						contactEntry.name.split(" ")[0],
+						contactEntry.name.split(" ")[1],
+						contactEntry.phone,
+						contactEntry.email
+					);
+				});
+			}
+		};
+		xhr.send(jsonPayload);
+	} catch (err) {
+		console.log(`Error: ${err.message}`);
+	}
 };
 
 const resetSearch = () => {
@@ -298,18 +307,13 @@ const resetSearch = () => {
 };
 
 const initializeContactsPage = () => {
-	contactEntries = document.querySelector("#contact-entries");
+	contactEntries = document.getElementById("contactEntries");
 	contactEntryBase = contactEntries
 		.querySelector(".contact-entry")
 		.cloneNode(true);
 	contactEntries.querySelector(".contact-entry").remove();
 	contactFormBase = document.getElementById("contactForm").cloneNode(true);
-
-	// TODO - To be removed
-	insertContact("Peter", "Griffin", "(743)453-2134", "Peter@gmail.com");
-	insertContact("Rick", "Sanchez", "(743)432-1234", "Rick@gmail.com");
-	insertContact("Jon", "Snow", "(744)532-1234", "Jon@gmail.com");
-	insertContact("Morty", "Smith", "(743)452-1234", "Morty@gmail.com");
+	searchContacts();
 };
 
 const validateContactFields = (firstName, lastName, phoneNumber, email) => {
@@ -352,26 +356,28 @@ const validateContactFields = (firstName, lastName, phoneNumber, email) => {
 
 const addContact = () => {
 	// Get add contact input values
-	const firstName = document
+	const firstNameValue = document
 		.getElementById("addContactFirstName")
 		.value.trim();
-	const lastName = document.getElementById("addContactLastName").value.trim();
-	const phoneNumber = document
+	const lastNameValue = document
+		.getElementById("addContactLastName")
+		.value.trim();
+	const phoneNumberValue = document
 		.getElementById("addContactPhoneNumber")
 		.value.trim();
-	const email = document.getElementById("addContactEmail").value.trim();
+	const emailValue = document.getElementById("addContactEmail").value.trim();
 
 	// Trim input spaces
-	document.getElementById("addContactFirstName").value = firstName;
-	document.getElementById("addContactLastName").value = lastName;
-	document.getElementById("addContactPhoneNumber").value = phoneNumber;
-	document.getElementById("addContactEmail").value = email;
+	document.getElementById("addContactFirstName").value = firstNameValue;
+	document.getElementById("addContactLastName").value = lastNameValue;
+	document.getElementById("addContactPhoneNumber").value = phoneNumberValue;
+	document.getElementById("addContactEmail").value = emailValue;
 
 	const addContactErrors = validateContactFields(
-		firstName,
-		lastName,
-		phoneNumber,
-		email
+		firstNameValue,
+		lastNameValue,
+		phoneNumberValue,
+		emailValue
 	);
 
 	// Display errors if error exists
@@ -387,18 +393,32 @@ const addContact = () => {
 		return;
 	}
 
-	// TODO - Make AddContact API call
+	// * Make AddContact API call
+	let jsonPayload = JSON.stringify({
+		name: `${firstNameValue} ${lastNameValue}`,
+		phone: convertPhoneNumberFormat(phoneNumberValue),
+		email: emailValue,
+		userId: userId,
+	});
 
-	// TODO - To be removed
-	insertContact(
-		firstName,
-		lastName,
-		convertPhoneNumberFormat(phoneNumber),
-		email
-	);
+	let url = urlBase + "/AddContacts." + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		xhr.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				resetAllFields();
+			}
+		};
+		xhr.send(jsonPayload);
+	} catch (err) {
+		console.log(`Error: ${err.message}`);
+	}
 };
 
-const insertContact = (firstName, lastName, phoneNumber, email) => {
+const insertContact = (id, firstName, lastName, phoneNumber, email) => {
 	const newContactEntry = contactEntryBase.cloneNode(true);
 
 	const contactEntryInfo = newContactEntry.querySelector(
@@ -412,8 +432,8 @@ const insertContact = (firstName, lastName, phoneNumber, email) => {
 	contactEntryInfo.innerHTML += `<p>${phoneNumber}</p>`;
 	contactEntryInfo.innerHTML += `<p>${email}</p>`;
 
-	// TODO - Set ID (To be changed)
-	newContactEntry.setAttribute("id", firstName);
+	// Set id
+	newContactEntry.setAttribute("id", `id-${id}`);
 
 	// Hide edit form
 	newContactEntry.querySelector("#contactForm").style.display = "none";
@@ -475,7 +495,7 @@ const switchContactToEdit = (event) => {
 	}
 };
 
-const editContact = () => {
+const editContact = (event) => {
 	const editContactFields = contactEntries.querySelectorAll(
 		`#${currentContactToEdit} #contactForm .form-fields .form-field`
 	);
@@ -486,22 +506,22 @@ const editContact = () => {
 	const phoneNumberField = editContactFields[2].querySelector("input");
 	const emailField = editContactFields[3].querySelector("input");
 
-	const firstName = firstNameField.value.trim();
-	const lastName = lastNameField.value.trim();
-	const phoneNumber = phoneNumberField.value.trim();
-	const email = emailField.value.trim();
+	const firstNameValue = firstNameField.value.trim();
+	const lastNameValue = lastNameField.value.trim();
+	const phoneNumberValue = phoneNumberField.value.trim();
+	const emailValue = emailField.value.trim();
 
 	// Trim input spaces
-	firstNameField.value = firstName;
-	lastNameField.value = lastName;
-	phoneNumberField.value = phoneNumber;
-	emailField.value = email;
+	firstNameField.value = firstNameValue;
+	lastNameField.value = lastNameValue;
+	phoneNumberField.value = phoneNumberValue;
+	emailField.value = emailValue;
 
 	editContactErrors = validateContactFields(
-		firstName,
-		lastName,
-		phoneNumber,
-		email
+		firstNameValue,
+		lastNameValue,
+		phoneNumberValue,
+		emailValue
 	);
 
 	// Display errors if error exists
@@ -518,7 +538,38 @@ const editContact = () => {
 		return;
 	}
 
-	// TODO - Make EditContact API call
+	// Retrieve Contact ID
+	let foundContactEntry = event.target.parentElement.parentElement;
+
+	if (event.target.nodeName === "H3") {
+		foundContactEntry = foundContactEntry.parentElement;
+	}
+
+	const foundId = foundContactEntry.id.split("-")[1];
+
+	// * Make EditContact API call
+	let jsonPayload = JSON.stringify({
+		id: foundId,
+		name: `${firstNameValue} ${lastNameValue}`,
+		phone: convertPhoneNumberFormat(phoneNumberValue),
+		email: emailValue,
+	});
+
+	let url = urlBase + "/UpdateContacts." + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		xhr.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				resetAllFields();
+			}
+		};
+		xhr.send(jsonPayload);
+	} catch (err) {
+		console.log(`Error: ${err.message}`);
+	}
 };
 
 const deleteContact = (event) => {
@@ -529,9 +580,28 @@ const deleteContact = (event) => {
 		foundContactEntry = foundContactEntry.parentElement;
 	}
 
-	const foundId = foundContactEntry.id;
+	const foundId = foundContactEntry.id.split("-")[1];
 
-	// TODO - Make deleteContacts API call
+	// * Make deleteContacts API call
+	let jsonPayload = JSON.stringify({
+		id: foundId,
+	});
+
+	let url = urlBase + "/DeleteContacts." + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+		xhr.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				resetAllFields();
+			}
+		};
+		xhr.send(jsonPayload);
+	} catch (err) {
+		console.log(`Error: ${err.message}`);
+	}
 };
 
 // * ================ UTILS ================

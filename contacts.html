@@ -18,8 +18,8 @@
 			document.addEventListener(
 				"DOMContentLoaded",
 				() => {
+					readCookie();
 					initializeContactsPage();
-					// readCookie();
 				},
 				false
 			);
@@ -55,7 +55,7 @@
 		<div class="contact-content">
 			<div>
 				<h1>Welcome</h1>
-				<h3>[Firstname], [Lastname]</h3>
+				<h3 id="userFullName">[Firstname], [Lastname]</h3>
 			</div>
 
 			<div class="add-contact-panel">
@@ -87,7 +87,7 @@
 					</button>
 				</div>
 			</div>
-			<div id="contact-entries" class="all-contact-panel">
+			<div id="allContacts" class="all-contact-panel">
 				<div>
 					<h3>All Contact</h3>
 				</div>
@@ -103,51 +103,56 @@
 						<h3>Reset</h3>
 					</button>
 				</div>
-				<div class="contact-entry">
-					<div class="contact-entry-form">
-						<div class="contact-entry-info">
-							<p>[Firstname, Lastname]</p>
-							<p>[Phone Number]</p>
-							<p>[Email]</p>
+				<div id="contactEntries" class="contact-entries">
+					<div class="contact-entry">
+						<div class="contact-entry-form">
+							<div class="contact-entry-info">
+								<p>[Firstname, Lastname]</p>
+								<p>[Phone Number]</p>
+								<p>[Email]</p>
+							</div>
+							<div class="contact-entry-navigation">
+								<button
+									class="button"
+									onclick="switchContactToEdit(event)"
+								>
+									<h3>Edit</h3>
+								</button>
+								<button
+									class="button delete-contact-button"
+									onclick="deleteContact(event);"
+								>
+									<h3>Delete</h3>
+								</button>
+							</div>
 						</div>
-						<div class="contact-entry-navigation">
+						<div id="contactForm" class="contact-form">
+							<div class="form-fields add-contact-form-fields">
+								<div class="form-field">
+									<p>First Name:</p>
+									<input type="text" />
+								</div>
+								<div class="form-field">
+									<p>Last Name:</p>
+									<input type="text" />
+								</div>
+								<div class="form-field">
+									<p>Phone Number:</p>
+									<input type="text" />
+								</div>
+								<div class="form-field">
+									<p>Email:</p>
+									<input type="text" />
+								</div>
+							</div>
+							<ul class="field-errors"></ul>
 							<button
 								class="button"
-								onclick="switchContactToEdit(event)"
+								onclick="editContact(event);"
 							>
-								<h3>Edit</h3>
-							</button>
-							<button
-								class="button delete-contact-button"
-								onclick="deleteContact(event);"
-							>
-								<h3>Delete</h3>
+								<h3>Save</h3>
 							</button>
 						</div>
-					</div>
-					<div id="contactForm" class="contact-form">
-						<div class="form-fields add-contact-form-fields">
-							<div class="form-field">
-								<p>First Name:</p>
-								<input type="text" />
-							</div>
-							<div class="form-field">
-								<p>Last Name:</p>
-								<input type="text" />
-							</div>
-							<div class="form-field">
-								<p>Phone Number:</p>
-								<input type="text" />
-							</div>
-							<div class="form-field">
-								<p>Email:</p>
-								<input type="text" />
-							</div>
-						</div>
-						<ul class="field-errors"></ul>
-						<button class="button" onclick="editContact();">
-							<h3>Save</h3>
-						</button>
 					</div>
 				</div>
 			</div>

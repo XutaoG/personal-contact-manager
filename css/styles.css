@@ -292,6 +292,12 @@ a {
 	box-shadow: 0px 0px 10px black;
 }
 
+.contact-entries {
+	align-self: stretch;
+	display: flex;
+	flex-direction: column;
+}
+
 .contact-entry {
 	align-self: stretch;
 	display: flex;
