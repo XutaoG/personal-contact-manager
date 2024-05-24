@@ -7,36 +7,37 @@ error_reporting(E_ALL);
 
 $inData = getRequestInfo();
 
-$ID = $inData["ID"];
-$Name = $inData["Name"];
-$Phone = $inData["Phone"];
-$Email = $inData["Email"];
+$id = $inData["id"];
+$name = $inData["name"];
+$phone = $inData["phone"];
+$email = $inData["email"];
 
-$conn = new mysqli("localhost", "TheBeast", "We4331!L", "COP4331");
+$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 if ($conn->connect_error) {
-    returnWithError($conn->connect_error);
+	returnWithError($conn->connect_error);
 } else {
-    $stmt = $conn->prepare("UPDATE Contacts SET Name=?, Phone=?, Email=? WHERE ID=?");
-    $stmt->bind_param("sssi", $Name, $Phone, $Email, $ID);
-    if($stmt->execute()) {
-        $stmt->close();
-        $conn->close();
-    } else {
-        returnWithError($stmt->error);
-    }
+	$stmt = $conn->prepare("UPDATE Contacts SET Name=?, Phone=?, Email=? WHERE ID=?");
+	$stmt->bind_param("sssi", $name, $phone, $email, $id);
+	$stmt->execute();
+	returnWithError($stmt->error);
+	$stmt->close();
+	$conn->close();
 }
 
-function getRequestInfo() {
-    return json_decode(file_get_contents('php://input'), true);
+function getRequestInfo()
+{
+	return json_decode(file_get_contents('php://input'), true);
 }
 
-function sendResultInfoAsJson($obj) {
-    header('Content-type: application/json');
-    echo $obj;
+function sendResultInfoAsJson($obj)
+{
+	header('Content-type: application/json');
+	echo $obj;
 }
 
-function returnWithError($err) {
-    $retValue = '{"error":"' . $err . '"}';
-    sendResultInfoAsJson($retValue);
+function returnWithError($err)
+{
+	$retValue = '{"error":"' . $err . '"}';
+	sendResultInfoAsJson($retValue);
 }
 ?>
