@@ -18,12 +18,10 @@
 			href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&family=Monoton&family=Orbitron:wght@400..900&display=swap"
 			rel="stylesheet"
 		/>
-
-		<script type="text/javascript" src="js/code.js"></script>
 		<title>Contact Manager</title>
 	</head>
 	<body class="auth-container">
-		<form class="auth-panel">
+		<div class="auth-panel">
 			<div class="title-container">
 				<h2>CONTACT MANAGER</h2>
 			</div>
@@ -47,9 +45,10 @@
 				</div>
 				<div class="auth-errors"></div>
 			</div>
-			<button class="button auth-proceed-button">
+			<button class="button auth-proceed-button" onclick="login();">
 				<h3>Login</h3>
 			</button>
-		</form>
+		</div>
 	</body>
+	<script type="text/javascript" src="js/code.js"></script>
 </html>

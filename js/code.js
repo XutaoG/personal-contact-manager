@@ -1,9 +1,14 @@
-const urlBase = "http://COP4331-5.com/LAMPAPI";
+const urlBase = "http://165.22.10.169/LAMPAPI";
 const extension = "php";
 
 let userId = 0;
 let firstName = "";
 let lastName = "";
+let contactEntries;
+let contactEntryBase;
+let contactFormBase;
+let currentContactToEdit = null;
+let addContactErrors = [];
 
 function doLogin() {
 	userId = 0;
@@ -89,14 +94,6 @@ function readCookie() {
 	}
 }
 
-function doLogout() {
-	userId = 0;
-	firstName = "";
-	lastName = "";
-	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-	window.location.href = "index.html";
-}
-
 function addColor() {
 	let newColor = document.getElementById("colorText").value;
 	document.getElementById("colorAddResult").innerHTML = "";
@@ -159,15 +156,122 @@ function searchColor() {
 	}
 }
 
-const contactEntries = document.querySelector("#contact-entries");
-const contactEntryBase = contactEntries
-	.querySelector(".contact-entry")
-	.cloneNode(true);
-contactEntries.querySelector(".contact-entry").remove();
-const contactFormBase = document.getElementById("contactForm").cloneNode(true);
-let currentContactToEdit = null;
+// * ================ USERS ================
 
-const addContact = (firstName, lastName, phoneNumber, email) => {
+const login = () => {
+	window.location.href = "contacts.html";
+};
+
+const logout = () => {
+	userId = 0;
+	firstName = "";
+	lastName = "";
+	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+	window.location.href = "index.html";
+};
+
+// * ================ CONTACTS ================
+
+const initializeContactsPage = () => {
+	contactEntries = document.querySelector("#contact-entries");
+	contactEntryBase = contactEntries
+		.querySelector(".contact-entry")
+		.cloneNode(true);
+	contactEntries.querySelector(".contact-entry").remove();
+	contactFormBase = document.getElementById("contactForm").cloneNode(true);
+
+	// TODO - Remove later
+	insertContact("Peter", "Griffin", "74345321234", "Peter@gmail.com");
+	insertContact("Peter", "Griffin", "74345321234", "Peter@gmail.com");
+	insertContact("Peter", "Griffin", "74345321234", "Peter@gmail.com");
+	insertContact("Peter", "Griffin", "74345321234", "Peter@gmail.com");
+};
+
+const validateContactFields = (firstName, lastName, phoneNumber, email) => {
+	const errors = [];
+
+	// Validate first name
+	if (firstName.length === 0) {
+		errors.push("First name cannot be empty");
+	} else if (firstName.length > 24) {
+		errors.push("First name cannot be longer than 24 characters");
+	}
+
+	// Validate last name
+	if (lastName.length === 0) {
+		errors.push("Last name cannot be empty");
+	} else if (lastName.length > 24) {
+		errors.push("Last name cannot be longer than 24 characters");
+	}
+
+	// Validate phone number
+	if (phoneNumber.length === 0) {
+		errors.push("Phone number cannot be empty");
+	} else if (!phoneNumber.match(/^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/)) {
+		errors.push("Please enter a valid 10-digit US phone number");
+	}
+
+	// Validate email
+	if (email.length === 0) {
+		errors.push("Email cannot be empty");
+	} else if (
+		!email.match(
+			/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+		)
+	) {
+		errors.push("Please enter a valid email (example@email.com)");
+	}
+
+	return errors;
+};
+
+const addContact = () => {
+	// Get add contact input values
+	const firstName = document
+		.getElementById("addContactFirstName")
+		.value.trim();
+	const lastName = document.getElementById("addContactLastName").value.trim();
+	const phoneNumber = document
+		.getElementById("addContactPhoneNumber")
+		.value.trim();
+	const email = document.getElementById("addContactEmail").value.trim();
+
+	// Trim input spaces
+	document.getElementById("addContactFirstName").value = firstName;
+	document.getElementById("addContactLastName").value = lastName;
+	document.getElementById("addContactPhoneNumber").value = phoneNumber;
+	document.getElementById("addContactEmail").value = email;
+
+	addContactErrors = validateContactFields(
+		firstName,
+		lastName,
+		phoneNumber,
+		email
+	);
+
+	// Display errors if error exists
+	if (addContactErrors.length !== 0) {
+		const addContactErrorsElement =
+			document.getElementById("addContactErrors");
+		addContactErrorsElement.innerHTML = "";
+
+		addContactErrors.forEach((error) => {
+			addContactErrorsElement.innerHTML += `<li>${error}</li>`;
+		});
+
+		return;
+	}
+
+	// TODO - Remove later
+	insertContact(
+		firstName,
+		lastName,
+		convertPhoneNumberFormat(phoneNumber),
+		email
+	);
+};
+
+const insertContact = (firstName, lastName, phoneNumber, email) => {
 	const newContactEntry = contactEntryBase.cloneNode(true);
 
 	const contactEntryInfo = newContactEntry.querySelector(
@@ -191,12 +295,6 @@ const addContact = (firstName, lastName, phoneNumber, email) => {
 	contactEntries.appendChild(newContactEntry);
 };
 
-// * To be removed
-addContact("John", "Doe", "(123)-456-7890", "john@gmail.com");
-addContact("Jane", "Doe", "(123)-456-7890", "jane@gmail.com");
-addContact("Peter", "Griffin", "(123)-456-7890", "peter@gmail.com");
-addContact("Rick", "Sanchez", "(123)-456-7890", "rick@gmail.com");
-
 const switchContactToEdit = (event) => {
 	let foundContactEntry =
 		event.target.parentElement.parentElement.parentElement;
@@ -213,6 +311,7 @@ const switchContactToEdit = (event) => {
 		// Edit a new contact, close all others
 		currentContactToEdit = foundContactEntry.id;
 
+		// Close all otherr contact edit form
 		contactEntries
 			.querySelectorAll(".contact-entry")
 			.forEach((contactEntry) => {
@@ -220,8 +319,26 @@ const switchContactToEdit = (event) => {
 					"none";
 			});
 
+		// Open the selected contact edit form
 		contactEntries
 			.querySelector(`#${currentContactToEdit}`)
 			.querySelector("#contactForm").style.display = "flex";
 	}
+};
+
+// * ================ UTILS ================
+const convertPhoneNumberFormat = (phoneNumber) => {
+	const phoneNumberPure = [];
+
+	for (let i = 0; i < phoneNumber.length; i++) {
+		if (!isNaN(phoneNumber.charAt(i))) {
+			phoneNumberPure.push(phoneNumber.charAt(i));
+		}
+	}
+
+	phoneNumberPure.splice(0, 0, "(");
+	phoneNumberPure.splice(4, 0, ")");
+	phoneNumberPure.splice(8, 0, "-");
+
+	return phoneNumberPure.join("");
 };

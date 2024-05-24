@@ -14,6 +14,16 @@
 			href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&family=Monoton&family=Orbitron:wght@400..900&display=swap"
 			rel="stylesheet"
 		/>
+		<script type="text/javascript">
+			document.addEventListener(
+				"DOMContentLoaded",
+				() => {
+					initializeContactsPage();
+					// readCookie();
+				},
+				false
+			);
+		</script>
 		<title>Contact Manager</title>
 	</head>
 	<body class="contact-container">
@@ -32,7 +42,10 @@
 					</button>
 				</div>
 			</div>
-			<button class="button logout-button navigation-button">
+			<button
+				class="button logout-button navigation-button"
+				onclick="logout();"
+			>
 				<h3>Logout</h3>
 			</button>
 		</div>
@@ -50,28 +63,27 @@
 					<div class="form-fields add-contact-form-fields">
 						<div class="form-field">
 							<p>First Name:</p>
-							<input type="text" />
+							<input id="addContactFirstName" type="text" />
 						</div>
 						<div class="form-field">
 							<p>Last Name:</p>
-							<input type="text" />
+							<input id="addContactLastName" type="text" />
 						</div>
 						<div class="form-field">
 							<p>Phone Number:</p>
-							<input type="text" />
+							<input id="addContactPhoneNumber" type="text" />
 						</div>
 						<div class="form-field">
 							<p>Email:</p>
-							<input type="text" />
+							<input id="addContactEmail" type="text" />
 						</div>
 					</div>
-					<div>[Errors]</div>
-					<button class="button">
+					<ul id="addContactErrors" class="field-errors"></ul>
+					<button class="button" onclick="addContact();">
 						<h3>Add</h3>
 					</button>
 				</div>
 			</div>
-
 			<div id="contact-entries" class="all-contact-panel">
 				<div>
 					<h3>All Contact</h3>
