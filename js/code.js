@@ -8,7 +8,6 @@ let contactEntries;
 let contactEntryBase;
 let contactFormBase;
 let currentContactToEdit = null;
-let addContactErrors = [];
 
 function doLogin() {
 	userId = 0;
@@ -156,10 +155,121 @@ function searchColor() {
 	}
 }
 
+// * ================ NAVIGATION ================
+
+const switchToContactsPage = () => {
+	window.location.href = "contacts.html";
+};
+
 // * ================ USERS ================
 
+const validateSignUpFields = (firstName, lastName, username, password) => {
+	const errors = [];
+
+	// Validate first name
+	if (firstName.length === 0) {
+		errors.push("First name cannot be empty");
+	} else if (firstName.length > 24) {
+		errors.push("First name cannot be longer than 24 characters");
+	}
+
+	// Validate last name
+	if (lastName.length === 0) {
+		errors.push("Last name cannot be empty");
+	} else if (lastName.length > 24) {
+		errors.push("Last name cannot be longer than 24 characters");
+	}
+
+	// Validate username
+	if (username.length === 0) {
+		errors.push("Username cannot be empty");
+	} else if (username.length > 24) {
+		errors.push("Username cannot be longer than 24 characters");
+	}
+
+	// Validate password
+	if (password.length <= 8) {
+		errors.push("Password must be longer than 8 characters");
+	} else if (password.length > 24) {
+		errors.push("Password cannot be longer than 24 characters");
+	}
+
+	return errors;
+};
+
+const signUp = () => {
+	// Get add contact input values
+	const firstName = document.getElementById("signUpFirstName").value.trim();
+	const lastName = document.getElementById("signUpLastName").value.trim();
+	const username = document.getElementById("signUpUsername").value.trim();
+	const password = document.getElementById("signUpPassword").value.trim();
+
+	// Trim input spaces
+	document.getElementById("signUpFirstName").value = firstName;
+	document.getElementById("signUpLastName").value = lastName;
+	document.getElementById("signUpUsername").value = username;
+	document.getElementById("signUpPassword").value = password;
+
+	signUpErrors = validateSignUpFields(
+		firstName,
+		lastName,
+		username,
+		password
+	);
+
+	// Display errors if error exists
+	if (signUpErrors.length !== 0) {
+		const signUpErrorsElement = document.getElementById("signUpErrors");
+		signUpErrorsElement.innerHTML = "";
+
+		signUpErrors.forEach((error) => {
+			signUpErrorsElement.innerHTML += `<li>${error}</li>`;
+		});
+
+		return;
+	}
+
+	// TODO - Make signUp API call
+};
+
+const validateLoginFields = (username, password) => {
+	const errors = [];
+
+	// Validate username
+	if (username.length === 0) {
+		errors.push("Username cannot be empty");
+	}
+
+	// Validate password
+	if (password.length === 0) {
+		errors.push("Password cannot be empty");
+	}
+
+	return errors;
+};
+
 const login = () => {
-	window.location.href = "contacts.html";
+	// Get login input values
+	const username = document.getElementById("loginUsername").value.trim();
+	const password = document.getElementById("loginPassword").value.trim();
+
+	loginErrors = validateLoginFields(username, password);
+
+	// Display errors if error exists
+	if (loginErrors.length !== 0) {
+		const loginErrorsElement = document.getElementById("loginErrors");
+		loginErrorsElement.innerHTML = "";
+
+		loginErrors.forEach((error) => {
+			loginErrorsElement.innerHTML += `<li>${error}</li>`;
+		});
+
+		return;
+	}
+
+	// TODO - Make login API call
+
+	// window.location.href = "contacts.html";
 };
 
 const logout = () => {
@@ -172,6 +282,21 @@ const logout = () => {
 
 // * ================ CONTACTS ================
 
+// TODO - Retrieve all contacts
+const getAllContacts = () => {};
+
+const searchContacts = () => {
+	const searchKeyword = document.querySelector("#search input").value;
+
+	// TODO - Make searchContacts API call
+};
+
+const resetSearch = () => {
+	document.querySelector("#search input").value = "";
+
+	searchContacts();
+};
+
 const initializeContactsPage = () => {
 	contactEntries = document.querySelector("#contact-entries");
 	contactEntryBase = contactEntries
@@ -180,11 +305,11 @@ const initializeContactsPage = () => {
 	contactEntries.querySelector(".contact-entry").remove();
 	contactFormBase = document.getElementById("contactForm").cloneNode(true);
 
-	// TODO - Remove later
-	insertContact("Peter", "Griffin", "74345321234", "Peter@gmail.com");
-	insertContact("Peter", "Griffin", "74345321234", "Peter@gmail.com");
-	insertContact("Peter", "Griffin", "74345321234", "Peter@gmail.com");
-	insertContact("Peter", "Griffin", "74345321234", "Peter@gmail.com");
+	// TODO - To be removed
+	insertContact("Peter", "Griffin", "(743)453-2134", "Peter@gmail.com");
+	insertContact("Rick", "Sanchez", "(743)432-1234", "Rick@gmail.com");
+	insertContact("Jon", "Snow", "(744)532-1234", "Jon@gmail.com");
+	insertContact("Morty", "Smith", "(743)452-1234", "Morty@gmail.com");
 };
 
 const validateContactFields = (firstName, lastName, phoneNumber, email) => {
@@ -242,7 +367,7 @@ const addContact = () => {
 	document.getElementById("addContactPhoneNumber").value = phoneNumber;
 	document.getElementById("addContactEmail").value = email;
 
-	addContactErrors = validateContactFields(
+	const addContactErrors = validateContactFields(
 		firstName,
 		lastName,
 		phoneNumber,
@@ -262,7 +387,9 @@ const addContact = () => {
 		return;
 	}
 
-	// TODO - Remove later
+	// TODO - Make AddContact API call
+
+	// TODO - To be removed
 	insertContact(
 		firstName,
 		lastName,
@@ -317,13 +444,94 @@ const switchContactToEdit = (event) => {
 			.forEach((contactEntry) => {
 				contactEntry.querySelector("#contactForm").style.display =
 					"none";
+
+				// Remove all errors
+				contactEntry.querySelector(".field-errors").innerHTML = "";
 			});
 
 		// Open the selected contact edit form
-		contactEntries
-			.querySelector(`#${currentContactToEdit}`)
-			.querySelector("#contactForm").style.display = "flex";
+		const selectedContactEntry = contactEntries.querySelector(
+			`#${currentContactToEdit}`
+		);
+
+		selectedContactEntry.querySelector(`#contactForm`).style.display =
+			"flex";
+
+		// Popular edit form fields with existing data
+		const editFormFields = contactEntries.querySelectorAll(
+			`#${currentContactToEdit} .form-field`
+		);
+
+		const formData = selectedContactEntry.querySelectorAll(
+			".contact-entry-info p"
+		);
+
+		editFormFields[0].querySelector("input").value =
+			formData[0].innerHTML.split(" ")[0];
+		editFormFields[1].querySelector("input").value =
+			formData[0].innerHTML.split(" ")[1];
+		editFormFields[2].querySelector("input").value = formData[1].innerHTML;
+		editFormFields[3].querySelector("input").value = formData[2].innerHTML;
 	}
+};
+
+const editContact = () => {
+	const editContactFields = contactEntries.querySelectorAll(
+		`#${currentContactToEdit} #contactForm .form-fields .form-field`
+	);
+
+	// Get add contact input values
+	const firstNameField = editContactFields[0].querySelector("input");
+	const lastNameField = editContactFields[1].querySelector("input");
+	const phoneNumberField = editContactFields[2].querySelector("input");
+	const emailField = editContactFields[3].querySelector("input");
+
+	const firstName = firstNameField.value.trim();
+	const lastName = lastNameField.value.trim();
+	const phoneNumber = phoneNumberField.value.trim();
+	const email = emailField.value.trim();
+
+	// Trim input spaces
+	firstNameField.value = firstName;
+	lastNameField.value = lastName;
+	phoneNumberField.value = phoneNumber;
+	emailField.value = email;
+
+	editContactErrors = validateContactFields(
+		firstName,
+		lastName,
+		phoneNumber,
+		email
+	);
+
+	// Display errors if error exists
+	if (editContactErrors.length !== 0) {
+		const editContactErrorsElement = document.querySelector(
+			`#${currentContactToEdit} .field-errors`
+		);
+		editContactErrorsElement.innerHTML = "";
+
+		editContactErrors.forEach((error) => {
+			editContactErrorsElement.innerHTML += `<li>${error}</li>`;
+		});
+
+		return;
+	}
+
+	// TODO - Make EditContact API call
+};
+
+const deleteContact = (event) => {
+	let foundContactEntry =
+		event.target.parentElement.parentElement.parentElement;
+
+	if (event.target.nodeName === "H3") {
+		foundContactEntry = foundContactEntry.parentElement;
+	}
+
+	const foundId = foundContactEntry.id;
+
+	// TODO - Make deleteContacts API call
 };
 
 // * ================ UTILS ================

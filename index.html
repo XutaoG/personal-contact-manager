@@ -36,14 +36,22 @@
 				<div class="form-fields">
 					<div class="form-field">
 						<p>Username:</p>
-						<input type="text" />
+						<input
+							id="loginUsername"
+							type="text"
+							onkeypress="return event.charCode != 32"
+						/>
 					</div>
 					<div class="form-field">
 						<p>Password:</p>
-						<input type="password" />
+						<input
+							id="loginPassword"
+							type="password"
+							onkeypress="return event.charCode != 32"
+						/>
 					</div>
 				</div>
-				<div class="auth-errors"></div>
+				<ul id="loginErrors" class="auth-errors field-errors"></ul>
 			</div>
 			<button class="button auth-proceed-button" onclick="login();">
 				<h3>Login</h3>

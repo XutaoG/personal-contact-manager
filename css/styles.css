@@ -158,6 +158,7 @@ a {
 
 .auth-errors {
 	height: 100px;
+	align-self: start;
 }
 
 .auth-proceed-button {
@@ -239,6 +240,14 @@ a {
 	border-radius: 5px;
 }
 
+.reset-search-button {
+	background: var(--deletion-color);
+}
+
+.reset-search-button:hover {
+	background: var(--deletion-color-darken);
+}
+
 .add-contact-panel {
 	background: var(--panel-color);
 	padding: 15px;
@@ -306,6 +315,14 @@ a {
 	justify-content: space-between;
 	gap: 10px;
 	flex-wrap: wrap;
+}
+
+.contact-entry-info p {
+	width: 250px;
+}
+
+.contact-entry-info p:last-child {
+	text-align: right;
 }
 
 .contact-entry-navigation {

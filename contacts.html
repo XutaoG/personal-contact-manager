@@ -34,7 +34,10 @@
 				</div>
 				<hr color="#101010" />
 				<div class="navigation-buttons">
-					<button class="button navigation-button">
+					<button
+						class="button navigation-button"
+						onclick="switchToContactsPage();"
+					>
 						<h3>Contacts</h3>
 					</button>
 					<button class="button navigation-button">
@@ -88,10 +91,16 @@
 				<div>
 					<h3>All Contact</h3>
 				</div>
-				<div class="search">
+				<div id="search" class="search">
 					<input type="text" placeholder="Search" />
-					<button class="button">
+					<button class="button" onclick="searchContacts();">
 						<h3>Search</h3>
+					</button>
+					<button
+						class="button reset-search-button"
+						onclick="resetSearch();"
+					>
+						<h3>Reset</h3>
 					</button>
 				</div>
 				<div class="contact-entry">
@@ -108,7 +117,10 @@
 							>
 								<h3>Edit</h3>
 							</button>
-							<button class="button delete-contact-button">
+							<button
+								class="button delete-contact-button"
+								onclick="deleteContact(event);"
+							>
 								<h3>Delete</h3>
 							</button>
 						</div>
@@ -132,8 +144,8 @@
 								<input type="text" />
 							</div>
 						</div>
-						<div>[Errors]</div>
-						<button class="button">
+						<ul class="field-errors"></ul>
+						<button class="button" onclick="editContact();">
 							<h3>Save</h3>
 						</button>
 					</div>
