@@ -15,6 +15,7 @@ function saveCookie() {
 	let date = new Date();
 	date.setTime(date.getTime() + minutes * 60 * 1000);
 	document.cookie =
+		"info=user," +
 		"firstName=" +
 		firstName +
 		",lastName=" +
