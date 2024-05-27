@@ -7,6 +7,10 @@
 	color: white;
 }
 
+body {
+	min-width: 0;
+}
+
 p {
 	font-size: 16px;
 }
@@ -351,6 +355,23 @@ a {
 
 .field-errors li {
 	color: var(--deletion-color);
+}
+
+.contributors-panel {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+}
+
+.contributor-panel {
+	display: flex;
+	flex-direction: column;
+	padding: 15px;
+	background: var(--panel-color);
+	gap: 15px;
+	box-shadow: 0px 0px 10px black;
+	align-items: start;
 }
 
 /* * ========================= END CONTACT ========================= */
