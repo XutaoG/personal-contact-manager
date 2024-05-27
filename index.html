@@ -28,7 +28,7 @@
 			<h1>Welcome</h1>
 			<div class="auth-form-container">
 				<div class="auth-form-title">
-					<h3>Login Now</h3>
+					<h2>Login Now</h2>
 					<p>
 						<a href="/signup.html">Signup Instead</a>
 					</p>
@@ -39,6 +39,7 @@
 						<input
 							id="loginUsername"
 							type="text"
+							placeholder="Username"
 							onkeypress="return event.charCode != 32"
 						/>
 					</div>
@@ -47,14 +48,18 @@
 						<input
 							id="loginPassword"
 							type="password"
+							placeholder="Password"
 							onkeypress="return event.charCode != 32"
 						/>
 					</div>
 				</div>
 				<ul id="loginErrors" class="auth-errors field-errors"></ul>
 			</div>
-			<button class="button auth-proceed-button" onclick="login();">
-				<h3>Login</h3>
+			<button
+				class="button auth-proceed-button button-text-lg"
+				onclick="login();"
+			>
+				Login
 			</button>
 		</div>
 	</body>

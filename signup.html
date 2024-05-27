@@ -24,7 +24,7 @@
 			<h1>Welcome</h1>
 			<div class="auth-form-container">
 				<div class="auth-form-title">
-					<h3>Sign Up Now</h3>
+					<h2>Sign Up Now</h2>
 					<p>
 						<a href="/index.html">Login Instead</a>
 					</p>
@@ -32,17 +32,26 @@
 				<div class="form-fields">
 					<div class="form-field">
 						<p>First Name:</p>
-						<input id="signUpFirstName" type="text" />
+						<input
+							id="signUpFirstName"
+							placeholder="First Name"
+							type="text"
+						/>
 					</div>
 					<div class="form-field">
 						<p>Last Name:</p>
-						<input id="signUpLastName" type="text" />
+						<input
+							id="signUpLastName"
+							placeholder="Last Name"
+							type="text"
+						/>
 					</div>
 					<div class="form-field">
 						<p>Username:</p>
 						<input
 							id="signUpUsername"
 							type="text"
+							placeholder="Username"
 							onkeypress="return event.charCode != 32"
 						/>
 					</div>
@@ -51,14 +60,18 @@
 						<input
 							id="signUpPassword"
 							type="password"
+							placeholder="Password"
 							onkeypress="return event.charCode != 32"
 						/>
 					</div>
 				</div>
 				<ul id="signUpErrors" class="auth-errors field-errors"></ul>
 			</div>
-			<button class="button auth-proceed-button" onclick="signUp();">
-				<h3>Sign Up</h3>
+			<button
+				class="button auth-proceed-button button-text-lg"
+				onclick="signUp();"
+			>
+				Sign Up
 			</button>
 		</main>
 	</body>

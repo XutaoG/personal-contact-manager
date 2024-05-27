@@ -43,9 +43,9 @@ a {
 }
 
 :root {
-	--primary-color: #52b1b1;
-	--primary-color-light: #72caca;
-	--primary-color-dark: #368787;
+	--primary-color: #33cccc;
+	--primary-color-light: #40ebeb;
+	--primary-color-dark: #1ca8a8;
 
 	--background-color: #030c25;
 	--panel-color: #091c3a;
@@ -61,12 +61,17 @@ a {
 	padding: 0px 20px;
 	border: none;
 	border-radius: 5px;
-	color: white;
+	color: black;
 }
 
 .button:hover {
 	background: var(--primary-color-dark);
 	cursor: pointer;
+}
+
+.button-text-lg {
+	font-size: 18px;
+	font-weight: 600;
 }
 
 .background {
@@ -90,8 +95,8 @@ a {
 	display: flex;
 	background: var(--input-color);
 	padding: 15px 10px;
-	align-items: center;
 	border-radius: 5px;
+	align-items: center;
 	gap: 8px;
 }
 

@@ -35,29 +35,29 @@
 				<hr color="#101010" />
 				<div class="navigation-buttons">
 					<button
-						class="button navigation-button"
+						class="button navigation-button button-text-lg"
 						onclick="switchToContactsPage();"
 					>
-						<h3>Contacts</h3>
+						Contacts
 					</button>
 					<button
-						class="button navigation-button"
+						class="button navigation-button button-text-lg"
 						onclick="switchToContributorsPage();"
 					>
-						<h3>Contributors</h3>
+						Contributors
 					</button>
 				</div>
 			</div>
 			<button
-				class="button logout-button navigation-button"
+				class="button logout-button navigation-button button-text-lg"
 				onclick="logout();"
 			>
-				<h3>Logout</h3>
+				Logout
 			</button>
 		</div>
 		<div class="contact-content">
 			<div>
-				<h1>Welcome</h1>
+				<h2>Welcome</h3>
 				<h3 id="userFullName">[Firstname], [Lastname]</h3>
 			</div>
 
@@ -69,24 +69,43 @@
 					<div class="form-fields add-contact-form-fields">
 						<div class="form-field">
 							<p>First Name:</p>
-							<input id="addContactFirstName" type="text" />
+							<input
+								id="addContactFirstName"
+								placeholder="First Name"
+								type="text"
+							/>
 						</div>
 						<div class="form-field">
 							<p>Last Name:</p>
-							<input id="addContactLastName" type="text" />
+							<input
+								id="addContactLastName"
+								placeholder="Last Name"
+								type="text"
+							/>
 						</div>
 						<div class="form-field">
 							<p>Phone Number:</p>
-							<input id="addContactPhoneNumber" type="text" />
+							<input
+								id="addContactPhoneNumber"
+								placeholder="Phone Number"
+								type="text"
+							/>
 						</div>
 						<div class="form-field">
 							<p>Email:</p>
-							<input id="addContactEmail" type="text" />
+							<input
+								id="addContactEmail"
+								placeholder="Email"
+								type="text"
+							/>
 						</div>
 					</div>
 					<ul id="addContactErrors" class="field-errors"></ul>
-					<button class="button" onclick="addContact();">
-						<h3>Add</h3>
+					<button
+						class="button button-text-lg"
+						onclick="addContact();"
+					>
+						Add
 					</button>
 				</div>
 			</div>
@@ -96,14 +115,17 @@
 				</div>
 				<div id="search" class="search">
 					<input type="text" placeholder="Search" />
-					<button class="button" onclick="searchContacts();">
-						<h3>Search</h3>
+					<button
+						class="button button-text-lg"
+						onclick="searchContacts();"
+					>
+						Search
 					</button>
 					<button
-						class="button reset-search-button"
+						class="button reset-search-button button-text-lg"
 						onclick="resetSearch();"
 					>
-						<h3>Reset</h3>
+						Reset
 					</button>
 				</div>
 				<div id="contactEntries" class="contact-entries">
@@ -133,19 +155,28 @@
 							<div class="form-fields add-contact-form-fields">
 								<div class="form-field">
 									<p>First Name:</p>
-									<input type="text" />
+									<input
+										type="text"
+										placeholder="First Name"
+									/>
 								</div>
 								<div class="form-field">
 									<p>Last Name:</p>
-									<input type="text" />
+									<input
+										type="text"
+										placeholder="Last Name"
+									/>
 								</div>
 								<div class="form-field">
 									<p>Phone Number:</p>
-									<input type="text" />
+									<input
+										type="text"
+										placeholder="Phone Number"
+									/>
 								</div>
 								<div class="form-field">
 									<p>Email:</p>
-									<input type="text" />
+									<input type="text" placeholder="Email" />
 								</div>
 							</div>
 							<ul class="field-errors"></ul>
