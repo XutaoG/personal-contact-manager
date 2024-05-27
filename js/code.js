@@ -1,4 +1,11 @@
-const urlBase = "http://www.cop4331xutaocontactmanager.xyz//LAMPAPI";
+let urlBase = "";
+
+if (window.location.href.includes("www")) {
+	urlBase = `http://www.cop4331xutaocontactmanager.xyz/LAMPAPI`;
+} else {
+	urlBase = `http://cop4331xutaocontactmanager.xyz/LAMPAPI`;
+}
+
 const extension = "php";
 
 let userId = 0;
