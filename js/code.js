@@ -46,7 +46,7 @@ function readCookie() {
 	}
 
 	if (userId < 0) {
-		window.location.href = "index.html";
+		// window.location.href = "index.html";
 	} else {
 		document.getElementById(
 			"userFullName"
@@ -58,6 +58,10 @@ function readCookie() {
 
 const switchToContactsPage = () => {
 	window.location.href = "contacts.html";
+};
+
+const switchToContributorsPage = () => {
+	window.location.href = "contributors.html";
 };
 
 // * ================ USERS ================

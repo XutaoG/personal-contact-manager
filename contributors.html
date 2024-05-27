@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="css/styles.css" rel="stylesheet" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&family=Monoton&family=Orbitron:wght@400..900&display=swap"
+			rel="stylesheet"
+		/>
+		<title>Contact Manager</title>
+	</head>
+	<body class="contact-container">
+		<div class="sidebar">
+			<div class="sidebar-top">
+				<div class="title-container">
+					<h2>CONTACT MANAGER</h2>
+				</div>
+				<hr color="#101010" />
+				<div class="navigation-buttons">
+					<button
+						class="button navigation-button"
+						onclick="switchToContactsPage();"
+					>
+						<h3>Contacts</h3>
+					</button>
+					<button class="button navigation-button">
+						<h3>Contributors</h3>
+					</button>
+				</div>
+			</div>
+			<button
+				class="button logout-button navigation-button"
+				onclick="logout();"
+			>
+				<h3>Logout</h3>
+			</button>
+		</div>
+		<div class="contact-content">
+			<div class="contributors-panel">
+				<div class="contributor-panel">
+					<h1>Xutao Gao</h1>
+					<h3>Role: Project Manager, Frontend</h3>
+					<a href="https://github.com/XutaoG" target="_blank"
+						>GitHub</a
+					>
+				</div>
+				<div class="contributor-panel">
+					<h1>Tanya Kotvitska</h1>
+					<h3>Role: API</h3>
+					<a href="https://github.com/TanyaKotvitska" target="_blank"
+						>GitHub</a
+					>
+				</div>
+				<div class="contributor-panel">
+					<h1>Luis Rodriguez-Rivera</h1>
+					<h3>Role: API</h3>
+					<a href="https://github.com/aluisrodriguezr" target="_blank"
+						>GitHub</a
+					>
+				</div>
+				<div class="contributor-panel">
+					<h1>Omar Castro</h1>
+					<h3>Role: Database</h3>
+					<a href="https://github.com/SnowyDragon22" target="_blank"
+						>GitHub</a
+					>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/code.js"></script>
+</html>
