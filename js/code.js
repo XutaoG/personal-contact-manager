@@ -60,6 +60,10 @@ const switchToContactsPage = () => {
 	window.location.href = "contacts.html";
 };
 
+const switchToContributorsPage = () => {
+	window.location.href = "contributors.html";
+};
+
 // * ================ USERS ================
 
 const validateSignUpFields = (firstName, lastName, username, password) => {
